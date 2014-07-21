@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DungeonFadeInOut : MonoBehaviour 
+public class FieldFadeInOut : MonoBehaviour 
 {
 	public float fadeSpeed = 1.5f;
 	
@@ -49,7 +49,7 @@ public class DungeonFadeInOut : MonoBehaviour
 		
 		if (guiTexture.color.a >= 0.95f)
 		{
-			Application.LoadLevel ("Field");
+			Application.LoadLevel ("Battle");
 		}
 	}
 }

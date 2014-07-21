@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DungeonFadeInOut : MonoBehaviour 
+public class BattleFadeInOut : MonoBehaviour 
 {
 	public float fadeSpeed = 1.5f;
 	
