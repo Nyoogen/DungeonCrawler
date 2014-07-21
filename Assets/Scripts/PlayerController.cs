@@ -4,41 +4,23 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	public float speed;
-	public GUIText countText;
-	public GUIText winText;
-	private int count;
-
-	void Start ()
-	{
-		count = 0;
-		SetCountText ();
-		winText.text = "";
-	}
 
 
-	void FixedUpdate ()
-	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
-
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-
-		rigidbody.AddForce (movement * speed * Time.deltaTime);
-			
+		void FixedUpdate()
+		{
+			transform.position += transform.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+			transform.position += transform.up * Input.GetAxis("Vertical") * speed * Time.deltaTime;
 		}
+		
+
+			
+		
 	void OnTriggerEnter(Collider other) {
 
-		if (other.gameObject.tag == "PickUp")
+		if (other.gameObject.tag == "Enemy")
 		{
-			other.gameObject.SetActive(false);
-			count = count + 1;
-			SetCountText ();
+			Application.LoadLevel("Battle");
 }
 	}
-	void SetCountText () {
-			countText.text = "Count: " + count.ToString ();
-		if (count >= 13) {
-			winText.text = "YOU WIN!";
-				}
-		}
+
 }
