@@ -3,7 +3,9 @@ using System.Collections;
 
 public class PlayerInfo : MonoBehaviour {
 
-	static int hp;
-	static int mp;
+	public static float hp = 100.0f;
+	public static float mp = 100.0f;
+
+
 
 }

@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DungeonFadeInOut : MonoBehaviour 
+public class SceneChanger : MonoBehaviour 
 {
 	public float fadeSpeed = 1.5f;
 	
 	private bool sceneStarting = true;
+	private bool sceneEnding = false;
+
+	private string sceneString;
 	
 	void Awake ()
 	{
@@ -17,6 +20,11 @@ public class DungeonFadeInOut : MonoBehaviour
 		if (sceneStarting)
 		{
 			StartScene ();
+		}
+
+		if (sceneEnding)
+		{
+			EndScene();
 		}
 	}
 	
@@ -30,7 +38,7 @@ public class DungeonFadeInOut : MonoBehaviour
 		guiTexture.color = Color.Lerp (guiTexture.color, Color.black, fadeSpeed * Time.deltaTime);
 	}
 	
-	void StartScene ()
+	public void StartScene ()
 	{
 		FadeToClear ();
 		
@@ -42,14 +50,21 @@ public class DungeonFadeInOut : MonoBehaviour
 		}
 	}
 	
-	public void EndScene ()
+	void EndScene ()
 	{
 		guiTexture.enabled = true;
 		FadeToBlack ();
-		
-		if (guiTexture.color.a >= 0.95f)
+
+		if (guiTexture.color.a >= 0.90f)
 		{
-			Application.LoadLevel ("Field");
+			Application.LoadLevel(sceneString);
 		}
 	}
+
+	public void ChangeScene (string scene)
+	{
+		sceneEnding = true;
+		sceneString = scene;
+	}
+
 }
