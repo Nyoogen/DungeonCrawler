@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			speed = 0.0f;
 			FieldInfo.lastPlayerPosition = transform.position;
-			FieldInfo.encounteredObject = other.gameObject;
+			FieldInfo.lastEncounteredObjectTag = other.gameObject.tag;
 			sceneChanger.ChangeScene("Battle");
 		}
 	}

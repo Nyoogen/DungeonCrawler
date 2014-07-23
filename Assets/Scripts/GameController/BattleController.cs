@@ -7,6 +7,10 @@ public class BattleController : MonoBehaviour
 	private GameObject mpText;
 	private SceneChanger sceneChanger;
 
+	void Awake ()
+	{
+		FieldInfo.PrintInfo();
+	}
 	// Use this for initialization
 	void Start () 
 	{
@@ -14,6 +18,7 @@ public class BattleController : MonoBehaviour
 		mpText = GameObject.Find("MPText");
 		hpText.guiText.text = PlayerInfo.hp.ToString();
 		mpText.guiText.text = PlayerInfo.mp.ToString();
+		sceneChanger = GetComponent<SceneChanger>();
 	}
 	
 	// Update is called once per frame
@@ -30,6 +35,7 @@ public class BattleController : MonoBehaviour
 		// Just for testing battle end
 		if (Input.GetKeyDown(KeyCode.E))
 		{
+			FieldInfo.shouldDestroy = true;
 			sceneChanger.ChangeScene("Field");
 
 		}

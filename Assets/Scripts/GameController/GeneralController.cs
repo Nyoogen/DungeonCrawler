@@ -3,6 +3,23 @@ using System.Collections;
 
 public class GeneralController : MonoBehaviour 
 {
+	private GameObject player;
+
+	void Awake ()
+	{
+		if (FieldInfo.shouldDestroy)
+		{
+			Debug.Log("trying to destroy");
+			// Make sure that lastEncounteredObject exists
+			if (FieldInfo.lastEncounteredObjectTag != null)
+				Destroy(GameObject.FindGameObjectWithTag(FieldInfo.lastEncounteredObjectTag));
+		}
+
+		player = GameObject.FindGameObjectWithTag("Player");
+
+		player.transform.position = FieldInfo.lastPlayerPosition;
+	}
+
 	void Update () 
 	{
 		if (Input.GetKeyDown(KeyCode.X))
