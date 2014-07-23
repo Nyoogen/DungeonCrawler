@@ -543,6 +543,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1299300188}
   - 131: {fileID: 1299300187}
+  - 114: {fileID: 1299300186}
   m_Layer: 0
   m_Name: FieldStatus
   m_TagString: Untagged
@@ -550,6 +551,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1299300186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1299300185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fbadab469a644adfa560e8d525bfc84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MenuBox: {fileID: 100002, guid: ed3e8eac7c55746cfb0a659891814b18, type: 2}
 --- !u!131 &1299300187
 GUITexture:
   m_ObjectHideFlags: 0
