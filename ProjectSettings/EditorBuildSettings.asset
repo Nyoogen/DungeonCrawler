@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/_Scenes/Field.unity
   - enabled: 1
     path: Assets/_Scenes/Battle.unity
+  - enabled: 1
+    path: Assets/_Scenes/Town.unity
