@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour {
 		if (other.tag == "Enemy")
 		{
 			speed = 0.0f;
+			FieldInfo.lastPlayerPosition = transform.position;
+			FieldInfo.encounteredObject = other.gameObject;
 			sceneChanger.ChangeScene("Battle");
 		}
 	}
