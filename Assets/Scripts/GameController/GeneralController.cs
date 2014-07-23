@@ -4,6 +4,8 @@ using System.Collections;
 public class GeneralController : MonoBehaviour 
 {
 	private GameObject player;
+	private GameObject HPText;
+	private GameObject MPText;
 
 	void Awake ()
 	{
@@ -16,7 +18,8 @@ public class GeneralController : MonoBehaviour
 		}
 
 		player = GameObject.FindGameObjectWithTag("Player");
-
+		HPText = GameObject.Find("/FieldStatus/HPText");
+		MPText = GameObject.Find("/FieldStatus/MPText");
 		player.transform.position = FieldInfo.lastPlayerPosition;
 	}
 
@@ -34,5 +37,8 @@ public class GeneralController : MonoBehaviour
 			PlayerInfo.hp = 0.5f*PlayerInfo.hp;
 			PlayerInfo.mp = 0.5f*PlayerInfo.mp;
 		}
+		
+		HPText.guiText.text = PlayerInfo.hp.ToString();
+		MPText.guiText.text = PlayerInfo.mp.ToString();
 	}
 }
