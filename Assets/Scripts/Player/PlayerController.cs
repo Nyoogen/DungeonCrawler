@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float speed;
 	private float initialSpeed;
+	private bool finishedLoading;
 	private SceneChanger sceneChanger;
 	private GameObject gameController;
 
@@ -12,18 +13,27 @@ public class PlayerController : MonoBehaviour {
 	{
 		initialSpeed = speed;
 		speed = 0.0f;
+		finishedLoading = false;
 		gameController = GameObject.FindGameObjectWithTag("GameController");
 		sceneChanger = gameController.GetComponent<SceneChanger>();
 	}
 
+
 	void Update()
 	{
-		// This isn't entirely right yet because we haven't corner-cased for enemy encounters (i.e. speed=0 & screen fading)
 		if (gameController.guiTexture.color.a <= 0.05f)
 		{
-			speed = initialSpeed;
+			// The only reason the finishedLoading bool exists is to make sure that this code doesn't reset the speed after
+			// we encounter something
+			if (!finishedLoading)
+			{
+				speed = initialSpeed;
+				finishedLoading = true;
+			}
 		}
 	}
+
+
 	void FixedUpdate()
 	{
 		transform.position += transform.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime;
@@ -37,7 +47,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			speed = 0.0f;
 			FieldInfo.lastPlayerPosition = transform.position;
-			FieldInfo.lastEncounteredObjectTag = other.gameObject.tag;
+			FieldInfo.lastEncounteredObjectTag = other.gameObject.tag;	// Should probably be storing the object name or something here, because if we have multiple "Enemy" tagged objects, this might end up destroying all of them
 			sceneChanger.ChangeScene("Battle");
 		}
 		if (other.tag == "Exit")
