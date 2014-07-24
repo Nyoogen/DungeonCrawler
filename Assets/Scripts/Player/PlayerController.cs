@@ -4,13 +4,26 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	public float speed;
+	private float initialSpeed;
 	private SceneChanger sceneChanger;
+	private GameObject gameController;
 
 	void Awake()
 	{
-		sceneChanger = GameObject.FindGameObjectWithTag("GameController").GetComponent<SceneChanger>();
+		initialSpeed = speed;
+		speed = 0.0f;
+		gameController = GameObject.FindGameObjectWithTag("GameController");
+		sceneChanger = gameController.GetComponent<SceneChanger>();
 	}
 
+	void Update()
+	{
+		// This isn't entirely right yet because we haven't corner-cased for enemy encounters (i.e. speed=0 & screen fading)
+		if (gameController.guiTexture.color.a <= 0.05f)
+		{
+			speed = initialSpeed;
+		}
+	}
 	void FixedUpdate()
 	{
 		transform.position += transform.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime;
