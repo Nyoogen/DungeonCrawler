@@ -410,7 +410,7 @@ GUITexture:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1113805337}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Texture: {fileID: 2800000, guid: e1d79327068024e2fa1c5789b5e1f7c7, type: 3}
   m_Color: {r: .5, g: .5, b: .5, a: .5}
   m_PixelInset:
@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90889eccb738b41028dee15149b17940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MenuBox: {fileID: 100002, guid: ed3e8eac7c55746cfb0a659891814b18, type: 2}
 --- !u!1 &1643301995
 GameObject:
   m_ObjectHideFlags: 0

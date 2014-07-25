@@ -9,12 +9,11 @@ public class FieldInfo : MonoBehaviour {
 	public static string lastEncounteredObjectTag = null;
 
 
-	// Debugging
+	// Debugging. This way we can call this function from anywhere and have it spit out a bunch of information quickly
 	public static void PrintInfo()
 	{
 		Debug.Log("Last player position: "+lastPlayerPosition);
 		Debug.Log("shouldDestroy: "+shouldDestroy);
 		Debug.Log("Last encountered object: "+lastEncounteredObjectTag);
-
 	}
 }
