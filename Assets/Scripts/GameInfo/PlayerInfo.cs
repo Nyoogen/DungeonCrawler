@@ -12,5 +12,4 @@ public class PlayerInfo : MonoBehaviour {
 	public static float agility = 10f;
 	public static float cunning = 10f;
 
-	public static bool SchmooSlain = false;
 }

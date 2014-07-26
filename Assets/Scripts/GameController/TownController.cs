@@ -53,11 +53,11 @@ public class TownController : MonoBehaviour
 		if (showDialogueInn)
 		{
 			GUI.Box(new Rect(50, 50, 300, 300), dJdicpic);
-			if (PlayerInfo.SchmooSlain == false)
+			if (GameState.SchmooSlain == false)
 			{
 				GUI.Box(new Rect(350, 50, 300, 100), "Slay the schmoo, bro!");
 			}
-			if (PlayerInfo.SchmooSlain == true)
+			if (GameState.SchmooSlain == true)
 			{
 				GUI.Box(new Rect(350, 50, 300, 100), "You've slain the schmoo, bro!");
 			}
