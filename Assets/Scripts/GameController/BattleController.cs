@@ -32,6 +32,7 @@ public class BattleController : MonoBehaviour
 	{
 		if (EnemyInfo.hp <= 0.0f)
 		{
+			PlayerInfo.SchmooSlain = true;
 			FieldInfo.shouldDestroy = true;
 			sceneChanger.ChangeScene("Field");
 		}

@@ -9,9 +9,17 @@ public class TownController : MonoBehaviour
 	private bool showDialogueInn = false;
 	public Texture horseHead;
 	public Texture dJdicpic;
-
+	public Texture swatch_black_dff;
+	private SceneChanger sceneChanger;
+	
+	void Awake()
+	{
+		sceneChanger = GetComponent<SceneChanger>();
+	}
+        
 	void OnGUI()
 	{
+		GUI.skin.box.wordWrap = true;
 		if (showButtons)
 		{
 			float xShift = 200.0f;
@@ -31,19 +39,28 @@ public class TownController : MonoBehaviour
 			
 			if (GUI.Button (new Rect(280+(2*xShift), 550, 160, 60), "Abyss"))
 			{
-				Application.LoadLevel("Field");
+				showButtons = false;
+				sceneChanger.ChangeScene("Field");
 			}
 			
 		}
 		if (showDialogueStore)
 		{
 			GUI.Box(new Rect(50, 50, 300, 300), horseHead);
-			GUI.Box(new Rect(350, 50, 100, 100), "Hello, friend.");
+			GUI.Box(new Rect(350, 50, 300, 300), "Hello, friend. Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh.");
+			
 		}
 		if (showDialogueInn)
 		{
 			GUI.Box(new Rect(50, 50, 300, 300), dJdicpic);
-			GUI.Box(new Rect(350, 50, 300, 100), "Broooooooooooooooooo!");
+			if (PlayerInfo.SchmooSlain == false)
+			{
+				GUI.Box(new Rect(350, 50, 300, 100), "Slay the schmoo, bro!");
+			}
+			if (PlayerInfo.SchmooSlain == true)
+			{
+				GUI.Box(new Rect(350, 50, 300, 100), "You've slain the schmoo, bro!");
+			}
 		}
 	}
 	
