@@ -9,8 +9,9 @@ public class TownController : MonoBehaviour
 	private bool showDialogueInn = false;
 	public Texture horseHead;
 	public Texture dJdicpic;
-	public Texture swatch_black_dff;
 	private SceneChanger sceneChanger;
+	public GUISkin GUISkin;
+	public GUIStyle DialogueImage;
 	
 	void Awake()
 	{
@@ -19,7 +20,7 @@ public class TownController : MonoBehaviour
         
 	void OnGUI()
 	{
-		GUI.skin.box.wordWrap = true;
+		GUI.skin = GUISkin;
 		if (showButtons)
 		{
 			float xShift = 200.0f;
@@ -46,8 +47,8 @@ public class TownController : MonoBehaviour
 		}
 		if (showDialogueStore)
 		{
-			GUI.Box(new Rect(50, 50, 300, 300), horseHead);
-			GUI.Box(new Rect(350, 50, 300, 300), "Hello, friend. Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh.");
+			GUI.Box(new Rect(50, 50, 300, 300), horseHead, DialogueImage);
+			GUI.Box(new Rect(350, 50, 200, 200), "Hello, friend. Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh.");
 			
 		}
 		if (showDialogueInn)
