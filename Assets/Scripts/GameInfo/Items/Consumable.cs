@@ -4,13 +4,15 @@ using System.Collections.Generic;
 
 public class Consumable : MonoBehaviour 
 {
+	public string itemName;
 	public float hitPoints;
 	public float mentalPoints;
 	public bool hasEffects;
 	public List<string> effects;
 
-	public Consumable (float hp, float mp, bool hasEff, string[] eff)
+	public Consumable (string name, float hp, float mp, bool hasEff, string[] eff)
 	{
+		itemName = name;
 		hitPoints = hp;
 		mentalPoints = mp;
 		hasEffects = hasEff;
@@ -20,8 +22,9 @@ public class Consumable : MonoBehaviour
 		}
 	}
 
-	public Consumable (float hp, float mp)
+	public Consumable (string name, float hp, float mp)
 	{
+		itemName = name;
 		hitPoints = hp;
 		mentalPoints = mp;
 		hasEffects = false;
@@ -30,6 +33,7 @@ public class Consumable : MonoBehaviour
 	// Default constructor
 	public Consumable ()
 	{
+		itemName = "";
 		hitPoints = 0f;
 		mentalPoints = 0f;
 		hasEffects = false;
