@@ -13,8 +13,8 @@ public class TownController : MonoBehaviour
 	public GUISkin GUISkin;
 	public GUIStyle DialogueImage;
 	
-	public Rect shopBuyWindow = new Rect(300, 200, 400, 200);
-	private bool showWindow = false;
+	// public Rect shopBuyWindow = new Rect(300, 200, 400, 200);
+	// private bool showWindow = false;
 	
 	void Awake()
 	{
@@ -68,7 +68,19 @@ public class TownController : MonoBehaviour
 			
 			if (GUI.Button(new Rect(400, 200, 200, 100), "Buy"))
 			{
-				showWindow = true;
+				int index = Inventory.invList.IndexOf(ItemList.potion);
+				if (index < 0)
+				{
+					Debug.Log("Potion doesn't exist, adding it to inventory");
+					Inventory.invList.Add(ItemList.potion);
+					Inventory.invCount.Add(1);
+				}
+				else
+				{
+					Debug.Log("Adding a potion to the inventory");
+                    Inventory.invCount[index]++;
+                    Debug.Log("Number of potions after adding: "+Inventory.invCount[index]);
+				}
 			}
 			GUI.Button(new Rect(400, 320, 200, 100), "Sell");
 			if (GUI.Button(new Rect(400, 440, 200, 100), "Exit"))
@@ -77,10 +89,10 @@ public class TownController : MonoBehaviour
 				showDialogueInn = false;
 			}
 		}
-		if (showWindow == true)
-		{
-			shopBuyWindow = GUI.Window(0, shopBuyWindow, OpenShopBuyWindow, "Here's what we have available, bro!");
-		}
+		// if (showWindow == true)
+		// {
+		// 	shopBuyWindow = GUI.Window(0, shopBuyWindow, OpenShopBuyWindow, "Here's what we have available, bro!");
+		// }
 	}
 	
 	void Update()
@@ -94,12 +106,12 @@ public class TownController : MonoBehaviour
 				showDialogueStore = false;
 				showDialogueInn = false;
 			}
-			showWindow = false;
+			// showWindow = false;
 		}
 	}
 	
-	void OpenShopBuyWindow(int windowID) {
+	// void OpenShopBuyWindow(int windowID) {
 	// Doesn't do anything yet.
-	}
+	// }
 			
 }
