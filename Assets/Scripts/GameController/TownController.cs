@@ -30,14 +30,14 @@ public class TownController : MonoBehaviour
 			if(GUI.Button(new Rect(280, 550, 160, 60), "Haberdasher"))
 			{
 				showButtons = false;
-				showDialogue = true;
+				// showDialogue = true;
 				showDialogueStore = true;
 			}
 			
 			if (GUI.Button(new Rect(280+xShift, 550, 160, 60), "Caravansary"))
 			{
 				showButtons = false;
-				// showDialogue = true;
+				showDialogue = true;
 				showDialogueInn = true;
 			}
 			
@@ -51,21 +51,7 @@ public class TownController : MonoBehaviour
 		if (showDialogueStore)
 		{
 			GUI.Box(new Rect(50, 50, 300, 300), horseHead, DialogueImage);
-			GUI.Box(new Rect(350, 50, 200, 200), "Hello, friend. Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh.");
-			
-		}
-		if (showDialogueInn)
-		{
-			GUI.Box(new Rect(50, 50, 300, 300), dJdicpic, DialogueImage);
-			if (GameState.SchmooSlain == false)
-			{
-				GUI.Box(new Rect(350, 50, 300, 100), "Slay the schmoo, bro!");
-			}
-			if (GameState.SchmooSlain == true)
-			{
-				GUI.Box(new Rect(350, 50, 300, 100), "You've slain the schmoo, bro!");
-			}
-			
+			GUI.Box(new Rect(350, 50, 300, 100), "Hello, friend. Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh.");
 			if (GUI.Button(new Rect(400, 200, 200, 100), "Buy Potion"))
 			{
 				int index = Inventory.invList.IndexOf(ItemList.potion);
@@ -78,34 +64,49 @@ public class TownController : MonoBehaviour
 				else
 				{
 					Debug.Log("Adding a potion to the inventory");
-                    Inventory.invCount[index]++;
-                    Debug.Log("Number of potions after adding: "+Inventory.invCount[index]);
+					Inventory.invCount[index]++;
+					Debug.Log("Number of potions after adding: "+Inventory.invCount[index]);
 				}
 			}
 			if (GUI.Button(new Rect(400, 320, 200, 100), "Sell Potion"))
+			{
+				int index = Inventory.invList.IndexOf(ItemList.potion);
+				if (index < 0)
 				{
-					int index = Inventory.invList.IndexOf(ItemList.potion);
-					if (index < 0)
-					{
-						Debug.Log ("You have no potions to sell, bro.");
-					}
-					else if (Inventory.invCount[index] == 1)
-					{
-						Debug.Log ("You sold your last potion.");
-						Inventory.invList.RemoveAt(index);
-						Inventory.invCount.RemoveAt(index);
-					}
-					else if (Inventory.invCount[index] > 1)
-					{
-						Inventory.invCount[index]--;
-						Debug.Log ("Number of potions after selling: "+Inventory.invCount[index]);
-					}
+					Debug.Log ("You have no potions to sell, bro.");
 				}
-            if (GUI.Button(new Rect(400, 440, 200, 100), "Exit"))
+				else if (Inventory.invCount[index] == 1)
+				{
+					Debug.Log ("You sold your last potion.");
+                    Inventory.invList.RemoveAt(index);
+                    Inventory.invCount.RemoveAt(index);
+                }
+                else if (Inventory.invCount[index] > 1)
+                {
+                    Inventory.invCount[index]--;
+                    Debug.Log ("Number of potions after selling: "+Inventory.invCount[index]);
+                }
+            }
+			
+			if (GUI.Button(new Rect(400, 440, 200, 100), "Exit"))
 			{
 				showButtons = true;
-				showDialogueInn = false;
+				showDialogueStore = false;
+            }
+            
+        }
+        if (showDialogueInn)
+        {
+            GUI.Box(new Rect(50, 50, 300, 300), dJdicpic, DialogueImage);
+			if (GameState.SchmooSlain == false)
+			{
+				GUI.Box(new Rect(350, 50, 300, 100), "Slay the schmoo, bro!");
 			}
+			if (GameState.SchmooSlain == true)
+			{
+				GUI.Box(new Rect(350, 50, 300, 100), "You've slain the schmoo, bro!");
+			}
+			
 		}
 		// if (showWindow == true)
 		// {
