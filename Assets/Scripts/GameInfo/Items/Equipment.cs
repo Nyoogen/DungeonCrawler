@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Equipment : MonoBehaviour 
+public class Equipment
 {
 	public string itemName;
 	public float hitPoints;
@@ -23,17 +23,5 @@ public class Equipment : MonoBehaviour
 		agility = agi;
 		cunning = cun;
 	}
-
-	// Default constructor
-	public Equipment()
-	{
-		itemName = "";
-		hitPoints = 0f;
-		mentalPoints = 0f;
-		strength = 0f;
-		aptitude = 0f;
-		charisma = 0f;
-		agility = 0f;
-		cunning = 0f;
-	}
+	
 }

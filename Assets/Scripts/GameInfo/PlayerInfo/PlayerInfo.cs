@@ -12,4 +12,11 @@ public class PlayerInfo : MonoBehaviour {
 	public static float agility = 10f;
 	public static float cunning = 10f;
 
+	public static void Heal(float healValue)
+	{
+		if((hp+healValue) > 100.0f)
+			hp = 100.0f;
+		else
+			hp += healValue;
+	}
 }

@@ -2,25 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Consumable : MonoBehaviour 
+public class Consumable
 {
 	public string itemName;
 	public float hitPoints;
 	public float mentalPoints;
 	public bool hasEffects;
 	public List<string> effects;
-
-	public Consumable (string name, float hp, float mp, bool hasEff, string[] eff)
-	{
-		itemName = name;
-		hitPoints = hp;
-		mentalPoints = mp;
-		hasEffects = hasEff;
-		foreach (string element in eff)
-		{
-			effects.Add(element);
-		}
-	}
 
 	public Consumable (string name, float hp, float mp)
 	{
@@ -30,12 +18,23 @@ public class Consumable : MonoBehaviour
 		hasEffects = false;
 	}
 
-	// Default constructor
-	public Consumable ()
+	public Consumable (string name, float hp, float mp, bool hasEff, string[] eff)
 	{
-		itemName = "";
-		hitPoints = 0f;
-		mentalPoints = 0f;
-		hasEffects = false;
+		itemName = name;
+		hitPoints = hp;
+		mentalPoints = mp;
+		hasEffects = hasEff;
+//		foreach (string element in eff)
+//		{
+//			effects.Add(element);
+//		}
 	}
+
+	// Getters
+	public float getHPField()
+	{
+		return hitPoints;
+	}
+
+
 }

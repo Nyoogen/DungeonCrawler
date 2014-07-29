@@ -30,6 +30,8 @@ public class BattleController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		hpText.guiText.text = PlayerInfo.hp.ToString();
+
 		if (EnemyInfo.hp <= 0.0f)
 		{
 			GameState.SchmooSlain = true;
@@ -52,6 +54,29 @@ public class BattleController : MonoBehaviour
 		// ...and V because it's next to B.
 		if(Input.GetKeyDown(KeyCode.V))
 			showButton = false;
+
+		if(Input.GetKeyDown(KeyCode.P))
+		{
+			int index = Inventory.invList.IndexOf(ItemList.potion);
+			if (index < 0)
+			{
+				Debug.Log("Potion doesn't exist, adding it to inventory");
+				Inventory.invList.Add(ItemList.potion);
+				Inventory.invCount.Add(1);
+			}
+			else
+			{
+				Debug.Log("Adding a potion to the inventory");
+				Inventory.invCount[index]++;
+				Debug.Log("Number of potions after adding: "+Inventory.invCount[index]);
+			}
+		}
+
+		if(Input.GetKeyDown(KeyCode.H))
+		{
+			PlayerInfo.hp -= 20.0f;
+		}
+
 	}
 
 	// OnGUI seems to work like Update in that the game is constantly running through it
@@ -71,7 +96,32 @@ public class BattleController : MonoBehaviour
 
 			GUI.Button(new Rect(50, 50+yShift, 70, 40), "Abilities");
 
-			GUI.Button(new Rect(50, 50+(2*yShift), 70, 40), "Items");
+			if(GUI.Button(new Rect(50, 50+(2*yShift), 70, 40), "Items"))
+			{
+				int index = Inventory.invList.IndexOf(ItemList.potion);
+				if(index < 0)
+				{
+					// Potions haven't been added to the inventory yet
+					Debug.Log("Can't use, no potion exists");
+				}
+				else
+				{
+					if(Inventory.invCount[index] < 1)
+					{
+						Debug.Log("Can't use, no more potions left");
+					}
+					else
+					{
+						Debug.Log("Using a Potion from the inventory");
+						Debug.Log("Current number of potions: "+Inventory.invCount[index]);
+						PlayerInfo.Heal(ItemList.potion.getHPField());
+						Inventory.invCount[index]--;
+						Debug.Log("Number of potions after use: "+Inventory.invCount[index]);
+					}
+
+				}
+			}
+
 
 			GUI.Button(new Rect(50, 50+(3*yShift), 70, 40), "Defend");
 		}
