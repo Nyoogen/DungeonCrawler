@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeSpeed: 1.5
+  guiTextColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1113805339
 Transform:
   m_ObjectHideFlags: 0
@@ -435,6 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeSpeed: 1.5
+  guiTextColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1113805342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +449,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuBox: {fileID: 100002, guid: ed3e8eac7c55746cfb0a659891814b18, type: 2}
+  scrollPosition: {x: 0, y: 0}
+  battleText: 
+  guiSkin: {fileID: 11400000, guid: eda81153574faf4478034102b9e905ca, type: 2}
 --- !u!1 &1643301995
 GameObject:
   m_ObjectHideFlags: 0

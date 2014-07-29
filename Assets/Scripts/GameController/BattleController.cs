@@ -12,6 +12,9 @@ public class BattleController : MonoBehaviour
 	private GameObject inventory;
 	private GameObject defend;
 	private bool showButton = false;
+
+	public Vector2 scrollPosition;
+	public string battleText;
 	
 	void Awake ()
 	{
@@ -89,9 +92,10 @@ public class BattleController : MonoBehaviour
 
 			if(GUI.Button(new Rect(50, 50, 70, 40), "Attack"))
 			{
-				EnemyInfo.hp -= 20;
-				Debug.Log ("Enemy health is: "+EnemyInfo.hp);
+				battleText += "You hit the "+EnemyInfo.label+" for 1 damage!\n";
+				EnemyInfo.hp -= 1;
 				showButton = false;
+				scrollPosition.y = Mathf.Infinity;
 			}
 
 			GUI.Button(new Rect(50, 50+yShift, 70, 40), "Abilities");
@@ -125,5 +129,11 @@ public class BattleController : MonoBehaviour
 
 			GUI.Button(new Rect(50, 50+(3*yShift), 70, 40), "Defend");
 		}
+
+		GUILayout.BeginArea(new Rect(0, 500, 250, 250));
+		scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(200), GUILayout.Height(200));
+		GUILayout.Label(battleText);
+		GUILayout.EndScrollView();
+		GUILayout.EndArea();
 	}
 }
