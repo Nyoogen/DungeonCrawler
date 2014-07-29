@@ -66,7 +66,7 @@ public class TownController : MonoBehaviour
 				GUI.Box(new Rect(350, 50, 300, 100), "You've slain the schmoo, bro!");
 			}
 			
-			if (GUI.Button(new Rect(400, 200, 200, 100), "Buy"))
+			if (GUI.Button(new Rect(400, 200, 200, 100), "Buy Potion"))
 			{
 				int index = Inventory.invList.IndexOf(ItemList.potion);
 				if (index < 0)
@@ -82,8 +82,26 @@ public class TownController : MonoBehaviour
                     Debug.Log("Number of potions after adding: "+Inventory.invCount[index]);
 				}
 			}
-			GUI.Button(new Rect(400, 320, 200, 100), "Sell");
-			if (GUI.Button(new Rect(400, 440, 200, 100), "Exit"))
+			if (GUI.Button(new Rect(400, 320, 200, 100), "Sell Potion"))
+				{
+					int index = Inventory.invList.IndexOf(ItemList.potion);
+					if (index < 0)
+					{
+						Debug.Log ("You have no potions to sell, bro.");
+					}
+					else if (Inventory.invCount[index] == 1)
+					{
+						Debug.Log ("You sold your last potion.");
+						Inventory.invList.RemoveAt(index);
+						Inventory.invCount.RemoveAt(index);
+					}
+					else if (Inventory.invCount[index] > 1)
+					{
+						Inventory.invCount[index]--;
+						Debug.Log ("Number of potions after selling: "+Inventory.invCount[index]);
+					}
+				}
+            if (GUI.Button(new Rect(400, 440, 200, 100), "Exit"))
 			{
 				showButtons = true;
 				showDialogueInn = false;
