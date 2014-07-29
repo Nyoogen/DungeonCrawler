@@ -13,6 +13,9 @@ public class TownController : MonoBehaviour
 	public GUISkin GUISkin;
 	public GUIStyle DialogueImage;
 	
+	public Rect shopBuyWindow = new Rect(300, 200, 400, 200);
+	private bool showWindow = false;
+	
 	void Awake()
 	{
 		sceneChanger = GetComponent<SceneChanger>();
@@ -34,7 +37,7 @@ public class TownController : MonoBehaviour
 			if (GUI.Button(new Rect(280+xShift, 550, 160, 60), "Caravansary"))
 			{
 				showButtons = false;
-				showDialogue = true;
+				// showDialogue = true;
 				showDialogueInn = true;
 			}
 			
@@ -53,7 +56,7 @@ public class TownController : MonoBehaviour
 		}
 		if (showDialogueInn)
 		{
-			GUI.Box(new Rect(50, 50, 300, 300), dJdicpic);
+			GUI.Box(new Rect(50, 50, 300, 300), dJdicpic, DialogueImage);
 			if (GameState.SchmooSlain == false)
 			{
 				GUI.Box(new Rect(350, 50, 300, 100), "Slay the schmoo, bro!");
@@ -62,6 +65,21 @@ public class TownController : MonoBehaviour
 			{
 				GUI.Box(new Rect(350, 50, 300, 100), "You've slain the schmoo, bro!");
 			}
+			
+			if (GUI.Button(new Rect(400, 200, 200, 100), "Buy"))
+			{
+				showWindow = true;
+			}
+			GUI.Button(new Rect(400, 320, 200, 100), "Sell");
+			if (GUI.Button(new Rect(400, 440, 200, 100), "Exit"))
+			{
+				showButtons = true;
+				showDialogueInn = false;
+			}
+		}
+		if (showWindow == true)
+		{
+			shopBuyWindow = GUI.Window(0, shopBuyWindow, OpenShopBuyWindow, "Here's what we have available, bro!");
 		}
 	}
 	
@@ -76,6 +94,12 @@ public class TownController : MonoBehaviour
 				showDialogueStore = false;
 				showDialogueInn = false;
 			}
+			showWindow = false;
 		}
-	}		
+	}
+	
+	void OpenShopBuyWindow(int windowID) {
+	// Doesn't do anything yet.
+	}
+			
 }
