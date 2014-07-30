@@ -119,7 +119,8 @@ public class BattleController : MonoBehaviour
 					{
 						Debug.Log("Using a Potion from the inventory");
 						Debug.Log("Current number of potions: "+Inventory.invCount[index]);
-						PlayerInfo.Heal(ItemList.potion.getHPField());
+						PlayerInfo.HealHP(ItemList.potion.getHPField());
+						PlayerInfo.HealMP(ItemList.potion.getMPField());
 						Inventory.invCount[index]--;
 						Debug.Log("Number of potions after use: "+Inventory.invCount[index]);
 					}

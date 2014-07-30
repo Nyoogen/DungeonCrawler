@@ -51,11 +51,19 @@ public class PlayerInfo : MonoBehaviour {
 	public static float HPEvasion = agility + HPEvasionEquip + HPEvasionMod;
 	public static float MPEvasion = cunning + MPEvasionEquip + MPEvasionMod;
 
-	public static void Heal(float healValue)
+	public static void HealHP(float hpValue)
 	{
-		if((hp+healValue) > 100.0f)
+		if((hp+hpValue) > 100.0f)
 			hp = 100.0f;
 		else
-			hp += healValue;
+			hp += hpValue;
+	}
+
+	public static void HealMP(float mpValue)
+	{
+		if((mp+mpValue) > 100.0f)
+			mp = 100.0f;
+		else
+			mp += mpValue;
 	}
 }

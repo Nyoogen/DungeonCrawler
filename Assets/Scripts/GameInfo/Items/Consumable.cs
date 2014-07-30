@@ -36,5 +36,9 @@ public class Consumable
 		return hitPoints;
 	}
 
+	public float getMPField()
+	{
+		return mentalPoints;
+	}
 
 }
