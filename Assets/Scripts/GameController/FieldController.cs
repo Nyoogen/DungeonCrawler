@@ -160,8 +160,7 @@ public class FieldController : MonoBehaviour
 				{
 					Consumable con = (Consumable)Inventory.invList[itemIndex];
 					Debug.Log("Using a "+con.itemName+", there were "+Inventory.invCount[itemIndex].ToString());
-					PlayerInfo.HealHP(con.getHPField());
-					PlayerInfo.HealMP(con.getMPField());
+					PlayerInfo.UseConsumable(con.getHPField(), con.getMPField());
 					Inventory.invCount[itemIndex]--;
 					Debug.Log("...and now there are "+Inventory.invCount[itemIndex].ToString());
 				}

@@ -51,19 +51,23 @@ public class PlayerInfo : MonoBehaviour {
 	public static float HPEvasion = agility + HPEvasionEquip + HPEvasionMod;
 	public static float MPEvasion = cunning + MPEvasionEquip + MPEvasionMod;
 
-	public static void HealHP(float hpValue)
+
+	public static void UseConsumable(float hpValue, float mpValue)
 	{
 		if((hp+hpValue) > 100.0f)
 			hp = 100.0f;
 		else
 			hp += hpValue;
-	}
 
-	public static void HealMP(float mpValue)
-	{
 		if((mp+mpValue) > 100.0f)
 			mp = 100.0f;
 		else
 			mp += mpValue;
+	}
+
+	public static void UseConsumable(float hpValue, float mpValue, string[] effects)
+	{
+		UseConsumable(hpValue, mpValue);
+		// Theoretically heal status effects here
 	}
 }
