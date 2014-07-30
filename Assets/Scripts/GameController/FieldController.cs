@@ -24,6 +24,9 @@ public class FieldController : MonoBehaviour
 	private int clickedIndex;
 	private bool hasChangedPage = false;
 	private bool showConfirm = false;
+	
+	// Status vars
+	private bool showStatus = false;
 
 	void Awake ()
 	{
@@ -65,6 +68,12 @@ public class FieldController : MonoBehaviour
 			showMenu = true;
 		else
 			showMenu = false;
+			
+		// This just makes the status screen go away whenever you click
+		if (Input.GetMouseButtonDown(0)) // 0 always means left mouse button. This is hard-coded.
+		{
+			showStatus = false;
+		}
 	}
 
 	void OnGUI()
@@ -147,7 +156,14 @@ public class FieldController : MonoBehaviour
 					}
 				}
 			}
+			
 
+		}
+		
+		// This is the status screen code. So long wheeeeee
+		if (showStatus == true)
+		{
+			GUI.Box(new Rect(675, 50, 200, 400), "Current Parameters\n\nHP: "+PlayerInfo.hp+"\nMP: "+PlayerInfo.mp+"\n\nStrength: "+PlayerInfo.strength+"\nAptitude: "+PlayerInfo.aptitude+"\nCharisma: "+PlayerInfo.charisma+"\nAgility: "+PlayerInfo.agility+"\nCunning: "+PlayerInfo.cunning+"\n\nDefense: "+PlayerInfo.HPDefense+"\nMental Defense: "+PlayerInfo.MPDefense+"\nPhysical Power: "+PlayerInfo.strDamage+"\nPhysical Finesse: "+PlayerInfo.strAcc+"\nMagical Power: "+PlayerInfo.aptDamage+"\nMagical Finesse: "+PlayerInfo.aptAcc+"\nSocial Power: "+PlayerInfo.chaDamage+"\nSocial Finesse: "+PlayerInfo.chaAcc+"\nPhysical Evasion: "+PlayerInfo.HPEvasion+"\nMental Alertness: "+PlayerInfo.MPEvasion+"\n\nAchievements\n\nSlain the Schmoo: "+GameState.SchmooSlain);
 		}
 
 		if (showConfirm)
@@ -208,7 +224,7 @@ public class FieldController : MonoBehaviour
 
 			if (GUI.Button (new Rect(20+(3*xShift), 300, 80, 30), "Status"))
 			{
-				// Go to status menu
+				showStatus = true;
 			}
 		}
 	}
