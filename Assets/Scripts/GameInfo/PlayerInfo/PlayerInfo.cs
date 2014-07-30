@@ -48,6 +48,8 @@ public class PlayerInfo : MonoBehaviour {
 	public static float chaAcc = charisma + chaAccEquip + chaAccMod;
 	public static float HPDefense = HPDefenseEquip + HPDefenseMod; // There's no HP defense stat. That would be redundant with HP.
 	public static float MPDefense = MPDefenseEquip + MPDefenseMod; // Likewise, there's no MP defense stat; there's just MP itself.
+	public static float HPEvasion = agility + HPEvasionEquip + HPEvasionMod;
+	public static float MPEvasion = cunning + MPEvasionEquip + MPEvasionMod;
 
 	public static void Heal(float healValue)
 	{

@@ -4,7 +4,6 @@ using System.Collections;
 public class TownController : MonoBehaviour 
 {
 	private bool showButtons = true;
-	private bool showDialogue = false;
 	private bool showDialogueStore = false;
 	private bool showDialogueInn = false;
 	public Texture horseHead;
@@ -13,8 +12,7 @@ public class TownController : MonoBehaviour
 	public GUISkin GUISkin;
 	public GUIStyle DialogueImage;
 	
-	// public Rect shopBuyWindow = new Rect(300, 200, 400, 200);
-	// private bool showWindow = false;
+	private bool showStatus = false;
 	
 	void Awake()
 	{
@@ -30,14 +28,12 @@ public class TownController : MonoBehaviour
 			if(GUI.Button(new Rect(280, 550, 160, 60), "Haberdasher"))
 			{
 				showButtons = false;
-				// showDialogue = true;
 				showDialogueStore = true;
 			}
 			
 			if (GUI.Button(new Rect(280+xShift, 550, 160, 60), "Caravansary"))
 			{
 				showButtons = false;
-				showDialogue = true;
 				showDialogueInn = true;
 			}
 			
@@ -87,6 +83,43 @@ public class TownController : MonoBehaviour
                     Debug.Log ("Number of potions after selling: "+Inventory.invCount[index]);
                 }
             }
+            
+			if (GUI.Button(new Rect(650, 200, 200, 100), "Buy Ether"))
+			{
+				int index = Inventory.invList.IndexOf(ItemList.ether);
+				if (index < 0)
+				{
+					Debug.Log("Ether doesn't exist, adding it to inventory");
+					Inventory.invList.Add(ItemList.ether);
+					Inventory.invCount.Add(1);
+				}
+				else
+				{
+					Debug.Log("Adding an ether to the inventory");
+					Inventory.invCount[index]++;
+					Debug.Log("Number of ethers after adding: "+Inventory.invCount[index]);
+				}
+			}
+			if (GUI.Button(new Rect(650, 320, 200, 100), "Sell Ether"))
+			{
+				int index = Inventory.invList.IndexOf(ItemList.ether);
+				if (index < 0)
+				{
+					Debug.Log ("You have no ethers to sell, bro.");
+				}
+				else if (Inventory.invCount[index] == 1)
+				{
+					Debug.Log ("You sold your last ether.");
+					Inventory.invList.RemoveAt(index);
+					Inventory.invCount.RemoveAt(index);
+				}
+				else if (Inventory.invCount[index] > 1)
+				{
+					Inventory.invCount[index]--;
+					Debug.Log ("Number of ethers after selling: "+Inventory.invCount[index]);
+				}
+			}
+			
 			
 			if (GUI.Button(new Rect(400, 440, 200, 100), "Exit"))
 			{
@@ -106,31 +139,28 @@ public class TownController : MonoBehaviour
 			{
 				GUI.Box(new Rect(350, 50, 300, 100), "You've slain the schmoo, bro!");
 			}
-			
+			if (GUI.Button(new Rect(400, 200, 200, 100), "View Status"))
+			{
+				showStatus = true;
+			}
+			if (GUI.Button(new Rect(400, 320, 200, 100), "Exit"))
+			{
+				showButtons = true;
+				showDialogueInn = false;
+			}
 		}
-		// if (showWindow == true)
-		// {
-		// 	shopBuyWindow = GUI.Window(0, shopBuyWindow, OpenShopBuyWindow, "Here's what we have available, bro!");
-		// }
+		if (showStatus == true)
+		{
+			GUI.Box(new Rect(675, 50, 200, 400), "Current Parameters\n\nHP: "+PlayerInfo.hp+"\nMP: "+PlayerInfo.mp+"\n\nStrength: "+PlayerInfo.strength+"\nAptitude: "+PlayerInfo.aptitude+"\nCharisma: "+PlayerInfo.charisma+"\nAgility: "+PlayerInfo.agility+"\nCunning: "+PlayerInfo.cunning+"\n\nDefense: "+PlayerInfo.HPDefense+"\nMental Defense: "+PlayerInfo.MPDefense+"\nPhysical Power: "+PlayerInfo.strDamage+"\nPhysical Finesse: "+PlayerInfo.strAcc+"\nMagical Power: "+PlayerInfo.aptDamage+"\nMagical Finesse: "+PlayerInfo.aptAcc+"\nSocial Power: "+PlayerInfo.chaDamage+"\nSocial Finesse: "+PlayerInfo.chaAcc+"\nPhysical Evasion: "+PlayerInfo.HPEvasion+"\nMental Alertness: "+PlayerInfo.MPEvasion+"\n\nAchievements\n\nSlain the Schmoo: "+GameState.SchmooSlain);
+		}
 	}
 	
 	void Update()
 	{
 		if (Input.GetMouseButtonDown(0)) // 0 always means left mouse button. This is hard-coded.
 		{
-			if(showDialogue)
-			{
-				showButtons = true;
-				showDialogue = false;
-				showDialogueStore = false;
-				showDialogueInn = false;
-			}
-			// showWindow = false;
+		showStatus = false;
 		}
 	}
-	
-	// void OpenShopBuyWindow(int windowID) {
-	// Doesn't do anything yet.
-	// }
 			
 }
