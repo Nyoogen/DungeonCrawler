@@ -92,8 +92,9 @@ public class BattleController : MonoBehaviour
 
 			if(GUI.Button(new Rect(50, 50, 70, 40), "Attack"))
 			{
-				battleText += "You hit the "+EnemyInfo.label+" for 1 damage!\n";
-				EnemyInfo.hp -= 1;
+				battleText += "You hit the "+EnemyInfo.label+" for 10 damage!\n";
+				EnemyInfo.hp -= 10;
+				battleText += "The "+EnemyInfo.label+" has "+EnemyInfo.hp+" HP remaining!\n";
 				showButton = false;
 				scrollPosition.y = Mathf.Infinity;
 			}
