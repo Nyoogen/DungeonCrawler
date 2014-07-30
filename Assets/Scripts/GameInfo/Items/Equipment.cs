@@ -4,24 +4,30 @@ using System.Collections;
 public class Equipment
 {
 	public string itemName;
-	public float hitPoints;
-	public float mentalPoints;
-	public float strength;
-	public float aptitude;
-	public float charisma;
-	public float agility;
-	public float cunning;
+	public float hitPointsDefense;
+	public float mentalPointsDefense;
+	public float strengthDamage;
+	public float strengthAccuracy;
+	public float aptitudeDamage;
+	public float aptitudeAccuracy;
+	public float charismaDamage;
+	public float charismaAccuracy;
+	public float hitPointsEvasion;
+	public float mentalPointsEvasion;
 
-	public Equipment(string name, float hp, float mp, float str, float apt, float cha, float agi, float cun)
+	public Equipment(string name, float hpD, float mpD, float strD, float strAc, float aptD, float aptAc, float chaD, float chaAc, float hpEv, float mpEv)
 	{
 		itemName = name;
-		hitPoints = hp;
-		mentalPoints = mp;
-		strength = str;
-		aptitude = apt;
-		charisma = cha;
-		agility = agi;
-		cunning = cun;
+		hitPointsDefense = hpD;
+		mentalPointsDefense = mpD;
+		strengthDamage = strD;
+		strengthAccuracy = strAc;
+		aptitudeDamage = aptD;
+		aptitudeAccuracy = aptAc;
+		charismaDamage = chaD;
+		charismaAccuracy = chaAc;
+		hitPointsEvasion = hpEv;
+		mentalPointsEvasion = mpEv;
 	}
 	
 }
