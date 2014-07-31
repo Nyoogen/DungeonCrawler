@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerInfo : MonoBehaviour {
 
+	public static Equipment[] equipment = new Equipment[9];	// We can put a different number in the brackets once we know how many pieces of equipment we want
+															// For now: Main hand, offhand, Head, Body, Hands, Legs, Feet, Neck, Ring	
+
 	public static float hp = 100.0f;
 	public static float mp = 100.0f;
 
@@ -51,23 +54,52 @@ public class PlayerInfo : MonoBehaviour {
 	public static float HPEvasion = agility + HPEvasionEquip + HPEvasionMod;
 	public static float MPEvasion = cunning + MPEvasionEquip + MPEvasionMod;
 
-
-	public static void UseConsumable(float hpValue, float mpValue)
+	public static void UseConsumable(Consumable item)
 	{
-		if((hp+hpValue) > 100.0f)
+		if((hp+item.hitPoints) > 100.0f)
 			hp = 100.0f;
 		else
-			hp += hpValue;
+			hp += item.hitPoints;
 
-		if((mp+mpValue) > 100.0f)
+		if((mp+item.mentalPoints) > 100.0f)
 			mp = 100.0f;
 		else
-			mp += mpValue;
+			mp += item.mentalPoints;
 	}
 
-	public static void UseConsumable(float hpValue, float mpValue, string[] effects)
+	public static void UseConsumable(Consumable item, string[] effects)
 	{
-		UseConsumable(hpValue, mpValue);
+		UseConsumable(item);
 		// Theoretically heal status effects here
+	}
+
+	public static void EquipItem(Equipment item)
+	{
+		strDamageEquip += item.strengthDamage;
+		strAccEquip    += item.strengthAccuracy;
+		aptDamageEquip += item.aptitudeDamage;
+		aptAccEquip    += item.aptitudeAccuracy;
+		chaDamageEquip += item.charismaDamage;
+		chaAccEquip    += item.charismaAccuracy;
+		HPDefenseEquip += item.hitPointsDefense;
+		MPDefenseEquip += item.mentalPointsDefense;
+		HPEvasionEquip += item.hitPointsEvasion;
+		MPEvasionEquip += item.mentalPointsEvasion;
+		equipment[item.slot] = item;
+	}
+
+	public static void UnequipItem(int slot)
+	{
+		strDamageEquip -= equipment[slot].strengthDamage;
+		strAccEquip    -= equipment[slot].strengthAccuracy;
+		aptDamageEquip -= equipment[slot].aptitudeDamage;
+		aptAccEquip    -= equipment[slot].aptitudeAccuracy;
+		chaDamageEquip -= equipment[slot].charismaDamage;
+		chaAccEquip    -= equipment[slot].charismaAccuracy;
+		HPDefenseEquip -= equipment[slot].hitPointsDefense;
+		MPDefenseEquip -= equipment[slot].mentalPointsDefense;
+		HPEvasionEquip -= equipment[slot].hitPointsEvasion;
+		MPEvasionEquip -= equipment[slot].mentalPointsEvasion;
+		equipment[slot] = new Equipment();
 	}
 }

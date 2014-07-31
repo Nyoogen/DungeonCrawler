@@ -60,19 +60,7 @@ public class BattleController : MonoBehaviour
 
 		if(Input.GetKeyDown(KeyCode.P))
 		{
-			int index = Inventory.invList.IndexOf(ItemList.potion);
-			if (index < 0)
-			{
-				Debug.Log("Potion doesn't exist, adding it to inventory");
-				Inventory.invList.Add(ItemList.potion);
-				Inventory.invCount.Add(1);
-			}
-			else
-			{
-				Debug.Log("Adding a potion to the inventory");
-				Inventory.invCount[index]++;
-				Debug.Log("Number of potions after adding: "+Inventory.invCount[index]);
-			}
+			Inventory.AddItem(ItemList.potion);
 		}
 
 		if(Input.GetKeyDown(KeyCode.H))
@@ -119,7 +107,7 @@ public class BattleController : MonoBehaviour
 					{
 						Debug.Log("Using a Potion from the inventory");
 						Debug.Log("Current number of potions: "+Inventory.invCount[index]);
-						PlayerInfo.UseConsumable(ItemList.potion.getHPField(), ItemList.potion.getMPField());
+						PlayerInfo.UseConsumable(ItemList.potion);
 						Inventory.invCount[index]--;
 						Debug.Log("Number of potions after use: "+Inventory.invCount[index]);
 					}

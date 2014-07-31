@@ -22,11 +22,17 @@ public class FieldController : MonoBehaviour
 	private int currentPage = 1;
 	private int itemIndex;
 	private int clickedIndex;
-	private bool hasChangedPage = false;
+//	private bool hasChangedPage = false;
 	private bool showConfirm = false;
 
 	void Awake ()
 	{
+		for(int i=0; i<PlayerInfo.equipment.Length; i++)
+		{
+			PlayerInfo.equipment[i] = new Equipment();
+		}
+
+		Debug.Log("Equipment in slot 0 is :"+PlayerInfo.equipment[0].itemName);
 		if (FieldInfo.shouldDestroy)
 		{
 			Debug.Log("trying to destroy");
@@ -47,12 +53,19 @@ public class FieldController : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.X))
 		{
-			Debug.Log("HP is: "+PlayerInfo.hp);
-			Debug.Log("MP is: "+PlayerInfo.mp);
+			Debug.Log("Adding "+ItemList.excalibur.itemName);
+			Inventory.AddItem(ItemList.excalibur);
+		}
+
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			Debug.Log("Adding "+ItemList.woodenSword.itemName);
+			Inventory.AddItem(ItemList.woodenSword);
 		}
 
 		if (Input.GetKeyDown(KeyCode.H))
 		{
+			Debug.Log("Hurting player");
 			PlayerInfo.hp -= 20.0f;
 			PlayerInfo.mp -= 20.0f;
 		}
@@ -105,6 +118,9 @@ public class FieldController : MonoBehaviour
 			for(int i=0; i<slotCount; i++)
 			{
 				index = i+((currentPage-1)*10);
+				Debug.Log("Slot count is :"+slotCount);
+				Debug.Log("Index is :"+index);
+
 				if(Inventory.invList[index] is Consumable)
 				{
 					con = (Consumable)Inventory.invList[index];
@@ -152,21 +168,32 @@ public class FieldController : MonoBehaviour
 
 		if (showConfirm)
 		{
+			Debug.Log("Showing confirmation now");
 			if (GUI.Button(new Rect(0.5f*Screen.width-50.0f,0.5f*Screen.height, 80, 30), "YES!"))
 			{
-				Debug.Log("Using a Potion from the inventory");
-				Debug.Log("Current number of potions: "+Inventory.invCount[itemIndex]);
+				Debug.Log("Yes has been clicked");
 				if(Inventory.invList[itemIndex] is Consumable)
 				{
-					Consumable con = (Consumable)Inventory.invList[itemIndex];
-					Debug.Log("Using a "+con.itemName+", there were "+Inventory.invCount[itemIndex].ToString());
-					PlayerInfo.UseConsumable(con.getHPField(), con.getMPField());
+					Consumable item = (Consumable)Inventory.invList[itemIndex];
+					Debug.Log("Using a "+item.itemName+", there were "+Inventory.invCount[itemIndex].ToString());
+					PlayerInfo.UseConsumable(item);
 					Inventory.invCount[itemIndex]--;
 					Debug.Log("...and now there are "+Inventory.invCount[itemIndex].ToString());
 				}
 				else if(Inventory.invList[itemIndex] is Equipment)
 				{
-					// Gotta equip it here
+					Debug.Log("Got into the if statement");
+					Equipment item = (Equipment)Inventory.invList[itemIndex];
+
+					Debug.Log("Item's name is :"+PlayerInfo.equipment[item.slot].itemName);
+					if(PlayerInfo.equipment[item.slot].itemName != "")
+					{
+						PlayerInfo.UnequipItem(item.slot);
+						Debug.Log("Unequipping a "+item.itemName);
+					}
+
+					PlayerInfo.EquipItem(item);
+					Debug.Log("Equipping a "+item.itemName);
 				}
 
 				// "Unclick" the item

@@ -48,79 +48,19 @@ public class TownController : MonoBehaviour
 		{
 			GUI.Box(new Rect(50, 50, 300, 300), horseHead, DialogueImage);
 			GUI.Box(new Rect(350, 50, 300, 100), "Hello, friend. Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh Neigh.");
+
 			if (GUI.Button(new Rect(400, 200, 200, 100), "Buy Potion"))
-			{
-				int index = Inventory.invList.IndexOf(ItemList.potion);
-				if (index < 0)
-				{
-					Debug.Log("Potion doesn't exist, adding it to inventory");
-					Inventory.invList.Add(ItemList.potion);
-					Inventory.invCount.Add(1);
-				}
-				else
-				{
-					Debug.Log("Adding a potion to the inventory");
-					Inventory.invCount[index]++;
-					Debug.Log("Number of potions after adding: "+Inventory.invCount[index]);
-				}
-			}
+				Inventory.AddItem(ItemList.potion);
+
 			if (GUI.Button(new Rect(400, 320, 200, 100), "Sell Potion"))
-			{
-				int index = Inventory.invList.IndexOf(ItemList.potion);
-				if (index < 0)
-				{
-					Debug.Log ("You have no potions to sell, bro.");
-				}
-				else if (Inventory.invCount[index] == 1)
-				{
-					Debug.Log ("You sold your last potion.");
-                    Inventory.invList.RemoveAt(index);
-                    Inventory.invCount.RemoveAt(index);
-                }
-                else if (Inventory.invCount[index] > 1)
-                {
-                    Inventory.invCount[index]--;
-                    Debug.Log ("Number of potions after selling: "+Inventory.invCount[index]);
-                }
-            }
+				Inventory.RemoveItem(ItemList.potion);
             
 			if (GUI.Button(new Rect(650, 200, 200, 100), "Buy Ether"))
-			{
-				int index = Inventory.invList.IndexOf(ItemList.ether);
-				if (index < 0)
-				{
-					Debug.Log("Ether doesn't exist, adding it to inventory");
-					Inventory.invList.Add(ItemList.ether);
-					Inventory.invCount.Add(1);
-				}
-				else
-				{
-					Debug.Log("Adding an ether to the inventory");
-					Inventory.invCount[index]++;
-					Debug.Log("Number of ethers after adding: "+Inventory.invCount[index]);
-				}
-			}
+				Inventory.AddItem(ItemList.ether);
+
 			if (GUI.Button(new Rect(650, 320, 200, 100), "Sell Ether"))
-			{
-				int index = Inventory.invList.IndexOf(ItemList.ether);
-				if (index < 0)
-				{
-					Debug.Log ("You have no ethers to sell, bro.");
-				}
-				else if (Inventory.invCount[index] == 1)
-				{
-					Debug.Log ("You sold your last ether.");
-					Inventory.invList.RemoveAt(index);
-					Inventory.invCount.RemoveAt(index);
-				}
-				else if (Inventory.invCount[index] > 1)
-				{
-					Inventory.invCount[index]--;
-					Debug.Log ("Number of ethers after selling: "+Inventory.invCount[index]);
-				}
-			}
-			
-			
+				Inventory.RemoveItem(ItemList.ether);
+
 			if (GUI.Button(new Rect(400, 440, 200, 100), "Exit"))
 			{
 				showButtons = true;
