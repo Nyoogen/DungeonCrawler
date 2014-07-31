@@ -53,7 +53,9 @@ public class PlayerInfo : MonoBehaviour {
 	public static float MPDefense;
 	public static float HPEvasion;
 	public static float MPEvasion;
-
+	
+	public static float currency = 1000f; // I'll need an update script somewhere, in town at least.
+    
 	public static void UseConsumable(Consumable item)
 	{
 		if((hp+item.hitPoints) > 100.0f)
@@ -116,5 +118,25 @@ public class PlayerInfo : MonoBehaviour {
 		MPDefense = MPDefenseEquip + MPDefenseMod; // Likewise, there's no MP defense stat; there's just MP itself.
 		HPEvasion = agility + HPEvasionEquip + HPEvasionMod;
 		MPEvasion = cunning + MPEvasionEquip + MPEvasionMod;
+	}
+	
+	// I'm putting my rudimentary currency value in here for now.
+	
+	public static bool Purchase(float value)
+	{
+		Debug.Log("Current currency: "+currency);
+		Debug.Log("Received value: "+value);
+		if (currency - value < 0f)
+		{
+			Debug.Log("After denial: "+currency);
+			return false;
+		}
+		else 
+		{
+			currency -= value;
+			Debug.Log("After purchasing: "+currency);
+			return true;
+		}
+		
 	}
 }
