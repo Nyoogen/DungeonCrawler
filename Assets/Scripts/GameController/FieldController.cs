@@ -102,6 +102,7 @@ public class FieldController : MonoBehaviour
 			Consumable con;
 			Equipment equip;
 
+
 			// This only generates the inventory bounding box
 			GUI.Box (new Rect(invRect), "");
 
@@ -245,42 +246,51 @@ public class FieldController : MonoBehaviour
 
 		if (showMenu)
 		{
-			float xShift = 100.0f;
+//			float xShift = 100.0f;
 
-//			GUILayout.BeginHorizontal();
-//			if(GUI.Button(new Rect(20, 300, 80, 30), "Equipment"))
+			GUIStyle buttonStyle = GUI.skin.button;
+			buttonStyle.fixedWidth = 80.0f;
+
+			GUILayout.BeginArea(new Rect(50, Screen.height-100f, buttonStyle.fixedWidth*5f, 30f));
+				GUILayout.BeginHorizontal();
+					if(GUILayout.Button("Equipment", buttonStyle))
+					{
+						// Go to equip menu
+					}
+					if(GUILayout.Button("Abilities", buttonStyle))
+					{
+						// Go to abilities menu
+					}
+					if(GUILayout.Button("Items", buttonStyle))
+					{
+						showInventory = true;
+					}
+					if(GUILayout.Button("Status", buttonStyle))
+					{
+						showStatus = true;
+					}
+				GUILayout.EndHorizontal();
+			GUILayout.EndArea();
+
+//			if(GUI.Button(new Rect(20, 600, 80, 30), "Equipment"))
 //			{
+//				// Go to equip menu
 //			}
-//			if(GUILayout.Button("Abilities"))
+//
+//			if (GUI.Button(new Rect(20+xShift, 600, 80, 30), "Abilities"))
 //			{
+//				// Go to abilities menu
 //			}
-//			if(GUILayout.Button("Items"))
+//
+//			if (GUI.Button (new Rect(20+(2*xShift), 600, 80, 30), "Items"))
 //			{
+//				showInventory = true;
 //			}
-//			if(GUILayout.Button("Status"))
+//
+//			if (GUI.Button (new Rect(20+(3*xShift), 600, 80, 30), "Status"))
 //			{
+//				showStatus = true;
 //			}
-//			GUILayout.EndHorizontal();
-
-			if(GUI.Button(new Rect(20, 600, 80, 30), "Equipment"))
-			{
-				// Go to equip menu
-			}
-
-			if (GUI.Button(new Rect(20+xShift, 600, 80, 30), "Abilities"))
-			{
-				// Go to abilities menu
-			}
-
-			if (GUI.Button (new Rect(20+(2*xShift), 600, 80, 30), "Items"))
-			{
-				showInventory = true;
-			}
-
-			if (GUI.Button (new Rect(20+(3*xShift), 600, 80, 30), "Status"))
-			{
-				showStatus = true;
-			}
 		}
 	}
 
