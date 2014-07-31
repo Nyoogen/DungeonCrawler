@@ -14,12 +14,12 @@ public class SceneChanger : MonoBehaviour
 	
 	void Awake ()
 	{
-//		Debug.Log (Application.loadedLevelName);
 		guiTexture.pixelInset = new Rect (0f, 0f, Screen.width, Screen.height);
 
 		// We want the GUIText in FieldStatus to be fading in from black to red, so we need to set the initial color to black
 		if (Application.loadedLevelName == "Field")
 		{
+			Debug.Log("Loading Field level");
 			fieldStatus = GameObject.Find("FieldStatus");
 			foreach(Transform child in fieldStatus.transform)
 			{

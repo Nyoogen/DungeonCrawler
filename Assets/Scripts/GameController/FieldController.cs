@@ -21,10 +21,9 @@ public class FieldController : MonoBehaviour
 	private Rect invRect;	// Inventory box
 	private string[] slotStrings = new string[10];
 	private GUIStyle[] slotStyles = new GUIStyle[10];
-	private List<Rect> rectList = new List<Rect>();
 	private int currentPage = 1;
 	private int itemIndex;
-	private int clickedIndex;
+	private int clickedIndex = -1;
 	private bool showConfirm = false;
 	//	private bool hasChangedPage = false; 
 	
@@ -41,7 +40,6 @@ public class FieldController : MonoBehaviour
 			PlayerInfo.equipment[i] = new Equipment();
 		}
 
-		Debug.Log("Equipment in slot 0 is :"+PlayerInfo.equipment[0].itemName);
 		if (FieldInfo.shouldDestroy)
 		{
 			Debug.Log("trying to destroy");
@@ -111,7 +109,7 @@ public class FieldController : MonoBehaviour
 			int index = 0;
 			Consumable con;
 			Equipment equip;
-
+			List<Rect> rectList = new List<Rect>();
 
 			// This only generates the inventory bounding box
 			GUI.Box (new Rect(invRect), "");
@@ -136,7 +134,6 @@ public class FieldController : MonoBehaviour
 			for(int i=0; i<slotCount; i++)
 			{
 				index = i+((currentPage-1)*10);
-				
 
 				if(Inventory.invList[index] is Consumable)
 				{
@@ -155,7 +152,6 @@ public class FieldController : MonoBehaviour
 				if (rectList.Count < slotCount)
 				{
 					rectList.Add(new Rect(invInitPos.x, invInitPos.y+(vertShift*i), invSlotSize.x, invSlotSize.y));
-					Debug.Log("Adding item to rectlist");
 				}
 			}
 
@@ -184,11 +180,11 @@ public class FieldController : MonoBehaviour
 				if(!invRect.Contains(e.mousePosition))
 				{
 					showInventory = false;
-					showConfirm = false;
+					if(clickedIndex >= 0)
+						slotStyles[clickedIndex] = defaultStyle;
 				}
 
 			}
-			
 
 		}
 		
@@ -208,7 +204,6 @@ public class FieldController : MonoBehaviour
 
 		if (showConfirm)
 		{
-			Debug.Log("Showing confirmation now");
 			if (GUI.Button(new Rect(0.5f*Screen.width-50.0f,0.5f*Screen.height, 80, 30), "YES!"))
 			{
 				Debug.Log("Yes has been clicked");
@@ -227,8 +222,8 @@ public class FieldController : MonoBehaviour
 
 					if(PlayerInfo.equipment[item.slot].itemName != "")
 					{
-						PlayerInfo.UnequipItem(item.slot);
 						Debug.Log("Unequipping a "+PlayerInfo.equipment[item.slot].itemName);
+						PlayerInfo.UnequipItem(item.slot);
 					}
 
 					PlayerInfo.EquipItem(item);

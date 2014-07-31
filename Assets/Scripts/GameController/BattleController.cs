@@ -42,14 +42,6 @@ public class BattleController : MonoBehaviour
 			sceneChanger.ChangeScene("Field");
 		}
 
-//		// Just for testing battle end
-//		if (Input.GetKeyDown(KeyCode.E))
-//		{
-//			FieldInfo.shouldDestroy = true;
-//			sceneChanger.ChangeScene("Field");
-//
-//		}
-
 		// B for button, I guess
 		if(Input.GetKeyDown(KeyCode.B))
 			showButton = true;

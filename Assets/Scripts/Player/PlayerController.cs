@@ -53,7 +53,10 @@ public class PlayerController : MonoBehaviour {
 		if (other.tag == "Exit")
 		{
 			speed = 0.0f;
-			FieldInfo.lastPlayerPosition = transform.position;
+			Vector3 exitCenter = new Vector3(other.transform.position.x, other.transform.position.y, 0);
+			Vector3 playerCenter = new Vector3(transform.position.x, transform.position.y, 0);
+			Vector3 directionVector = playerCenter-exitCenter;
+			FieldInfo.lastPlayerPosition = transform.position+(directionVector.normalized*0.1f);
 			sceneChanger.ChangeScene("Town");
 		}
 	}
