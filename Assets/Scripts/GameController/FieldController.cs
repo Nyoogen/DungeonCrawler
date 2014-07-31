@@ -16,20 +16,26 @@ public class FieldController : MonoBehaviour
 	// Inventory vars
 	public GUIStyle defaultStyle;
 	public GUIStyle clickedStyle;
+	public Vector2 invSlotSize = new Vector2(400,25);	// Size of each inventory slot
+	public Vector2 invInitPos = new Vector2(300,100);	// Coordinates for the top left corner of the inventory
+	private Rect invRect;	// Inventory box
 	private string[] slotStrings = new string[10];
 	private GUIStyle[] slotStyles = new GUIStyle[10];
 	private List<Rect> rectList = new List<Rect>();
 	private int currentPage = 1;
 	private int itemIndex;
 	private int clickedIndex;
-//	private bool hasChangedPage = false;
 	private bool showConfirm = false;
+	//	private bool hasChangedPage = false; 
 	
 	// Status vars
+	public Rect statusRect = new Rect(675, 50, 200, 400);	// Status box
 	private bool showStatus = false;
 
 	void Awake ()
 	{
+		invRect = new Rect(invInitPos.x, invInitPos.y, invSlotSize.x, invSlotSize.y*10.0f);
+
 		for(int i=0; i<PlayerInfo.equipment.Length; i++)
 		{
 			PlayerInfo.equipment[i] = new Equipment();
@@ -81,12 +87,6 @@ public class FieldController : MonoBehaviour
 			showMenu = true;
 		else
 			showMenu = false;
-			
-		// This just makes the status screen go away whenever you click
-		if (Input.GetMouseButtonDown(0)) // 0 always means left mouse button. This is hard-coded.
-		{
-			showStatus = false;
-		}
 	}
 
 	void OnGUI()
@@ -96,16 +96,14 @@ public class FieldController : MonoBehaviour
 
 		if(showInventory)
 		{
-			Vector2 slotSize = new Vector2(400,25);
-			Vector2 initPos = new Vector2(300,100);
-			float vertShift = slotSize.y;
+			float vertShift = invSlotSize.y;	// This isn't necessary of course, but I think it looks cleaner
 			int slotCount = 0;
 			int index = 0;
 			Consumable con;
 			Equipment equip;
 
 			// This only generates the inventory bounding box
-			GUI.Box (new Rect(initPos.x, initPos.y, slotSize.x, slotSize.y*10.0f), "");
+			GUI.Box (new Rect(invRect), "");
 
 			// This weird-ass math is a result of wanting the current page to start at 1, and not 0
 			// So for example, if we were on page 3, we're checking to see if there are less than 30 items
@@ -141,20 +139,21 @@ public class FieldController : MonoBehaviour
 					slotStrings[i] = equip.itemName + " (" + Inventory.invCount[index].ToString() + ")";
 				}
 
-				GUI.Box(new Rect(initPos.x, initPos.y+(vertShift*i), slotSize.x, slotSize.y), slotStrings[i], slotStyles[i]);
+				// Because this is in the for loop, this will generate the GUI.Box for every necessary inventory item
+				GUI.Box(new Rect(invInitPos.x, invInitPos.y+(vertShift*i), invSlotSize.x, invSlotSize.y), slotStrings[i], slotStyles[i]);
 
 				if (rectList.Count < slotCount)
 				{
-					rectList.Add(new Rect(initPos.x, initPos.y+(vertShift*i), slotSize.x, slotSize.y));
+					rectList.Add(new Rect(invInitPos.x, invInitPos.y+(vertShift*i), invSlotSize.x, invSlotSize.y));
 					Debug.Log("Adding item to rectlist");
 				}
 			}
 
 			if(Input.GetMouseButtonDown(0))
 			{
+				Event e = Event.current;
 				for(int i=0; i<rectList.Count; i++)
 				{
-					Event e = Event.current;
 					if(rectList[i].Contains(e.mousePosition))
 					{
 						// Reset all the styles (to the "unclicked" state)
@@ -171,6 +170,13 @@ public class FieldController : MonoBehaviour
 						break;
 					}
 				}
+
+				if(!invRect.Contains(e.mousePosition))
+				{
+					showInventory = false;
+					showConfirm = false;
+				}
+
 			}
 			
 
@@ -179,7 +185,15 @@ public class FieldController : MonoBehaviour
 		// This is the status screen code. So long wheeeeee
 		if (showStatus == true)
 		{
-			GUI.Box(new Rect(675, 50, 200, 400), "Current Parameters\n\nHP: "+PlayerInfo.hp+"\nMP: "+PlayerInfo.mp+"\n\nStrength: "+PlayerInfo.strength+"\nAptitude: "+PlayerInfo.aptitude+"\nCharisma: "+PlayerInfo.charisma+"\nAgility: "+PlayerInfo.agility+"\nCunning: "+PlayerInfo.cunning+"\n\nDefense: "+PlayerInfo.HPDefense+"\nMental Defense: "+PlayerInfo.MPDefense+"\nPhysical Power: "+PlayerInfo.strDamage+"\nPhysical Finesse: "+PlayerInfo.strAcc+"\nMagical Power: "+PlayerInfo.aptDamage+"\nMagical Finesse: "+PlayerInfo.aptAcc+"\nSocial Power: "+PlayerInfo.chaDamage+"\nSocial Finesse: "+PlayerInfo.chaAcc+"\nPhysical Evasion: "+PlayerInfo.HPEvasion+"\nMental Alertness: "+PlayerInfo.MPEvasion+"\n\nAchievements\n\nSlain the Schmoo: "+GameState.SchmooSlain);
+			GUI.Box(statusRect, "Current Parameters\n\nHP: "+PlayerInfo.hp+"\nMP: "+PlayerInfo.mp+"\n\nStrength: "+PlayerInfo.strength+"\nAptitude: "+PlayerInfo.aptitude+"\nCharisma: "+PlayerInfo.charisma+"\nAgility: "+PlayerInfo.agility+"\nCunning: "+PlayerInfo.cunning+"\n\nDefense: "+PlayerInfo.HPDefense+"\nMental Defense: "+PlayerInfo.MPDefense+"\nPhysical Power: "+PlayerInfo.strDamage+"\nPhysical Finesse: "+PlayerInfo.strAcc+"\nMagical Power: "+PlayerInfo.aptDamage+"\nMagical Finesse: "+PlayerInfo.aptAcc+"\nSocial Power: "+PlayerInfo.chaDamage+"\nSocial Finesse: "+PlayerInfo.chaAcc+"\nPhysical Evasion: "+PlayerInfo.HPEvasion+"\nMental Alertness: "+PlayerInfo.MPEvasion+"\n\nAchievements\n\nSlain the Schmoo: "+GameState.SchmooSlain);
+
+			if(Input.GetMouseButtonDown(0))
+			{
+				Event e = Event.current;
+
+				if(!statusRect.Contains(e.mousePosition))
+					showStatus = false;
+			}
 		}
 
 		if (showConfirm)
@@ -198,14 +212,12 @@ public class FieldController : MonoBehaviour
 				}
 				else if(Inventory.invList[itemIndex] is Equipment)
 				{
-					Debug.Log("Got into the if statement");
 					Equipment item = (Equipment)Inventory.invList[itemIndex];
 
-					Debug.Log("Item's name is :"+PlayerInfo.equipment[item.slot].itemName);
 					if(PlayerInfo.equipment[item.slot].itemName != "")
 					{
 						PlayerInfo.UnequipItem(item.slot);
-						Debug.Log("Unequipping a "+item.itemName);
+						Debug.Log("Unequipping a "+PlayerInfo.equipment[item.slot].itemName);
 					}
 
 					PlayerInfo.EquipItem(item);
@@ -234,22 +246,38 @@ public class FieldController : MonoBehaviour
 		if (showMenu)
 		{
 			float xShift = 100.0f;
-			if(GUI.Button(new Rect(20, 300, 80, 30), "Equipment"))
+
+//			GUILayout.BeginHorizontal();
+//			if(GUI.Button(new Rect(20, 300, 80, 30), "Equipment"))
+//			{
+//			}
+//			if(GUILayout.Button("Abilities"))
+//			{
+//			}
+//			if(GUILayout.Button("Items"))
+//			{
+//			}
+//			if(GUILayout.Button("Status"))
+//			{
+//			}
+//			GUILayout.EndHorizontal();
+
+			if(GUI.Button(new Rect(20, 600, 80, 30), "Equipment"))
 			{
 				// Go to equip menu
 			}
 
-			if (GUI.Button(new Rect(20+xShift, 300, 80, 30), "Abilities"))
+			if (GUI.Button(new Rect(20+xShift, 600, 80, 30), "Abilities"))
 			{
 				// Go to abilities menu
 			}
 
-			if (GUI.Button (new Rect(20+(2*xShift), 300, 80, 30), "Items"))
+			if (GUI.Button (new Rect(20+(2*xShift), 600, 80, 30), "Items"))
 			{
 				showInventory = true;
 			}
 
-			if (GUI.Button (new Rect(20+(3*xShift), 300, 80, 30), "Status"))
+			if (GUI.Button (new Rect(20+(3*xShift), 600, 80, 30), "Status"))
 			{
 				showStatus = true;
 			}
