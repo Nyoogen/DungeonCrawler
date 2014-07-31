@@ -56,6 +56,10 @@ public class FieldController : MonoBehaviour
 		menuController = GameObject.Find("FieldStatus").GetComponent<MenuController>();
 
 		player.transform.position = FieldInfo.lastPlayerPosition;
+		
+		// Initializing current stats
+		
+		PlayerInfo.UpdateStats();
 	}
 
 	void Update () 
@@ -87,6 +91,12 @@ public class FieldController : MonoBehaviour
 			showMenu = true;
 		else
 			showMenu = false;
+			
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			Debug.Log("The attack power of your weapon is "+PlayerInfo.strDamageEquip);
+			Debug.Log("Your overall attack power is "+PlayerInfo.strDamage);
+		}
 	}
 
 	void OnGUI()
@@ -126,8 +136,7 @@ public class FieldController : MonoBehaviour
 			for(int i=0; i<slotCount; i++)
 			{
 				index = i+((currentPage-1)*10);
-				Debug.Log("Slot count is :"+slotCount);
-				Debug.Log("Index is :"+index);
+				
 
 				if(Inventory.invList[index] is Consumable)
 				{
@@ -213,6 +222,7 @@ public class FieldController : MonoBehaviour
 				}
 				else if(Inventory.invList[itemIndex] is Equipment)
 				{
+					Debug.Log("We've found an equipment item. We know where this is");
 					Equipment item = (Equipment)Inventory.invList[itemIndex];
 
 					if(PlayerInfo.equipment[item.slot].itemName != "")

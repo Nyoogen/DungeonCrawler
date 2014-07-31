@@ -43,16 +43,16 @@ public class PlayerInfo : MonoBehaviour {
 	
 	// Here are the secondary stats. Use these for combat.
 	
-	public static float strDamage = strength + strDamageEquip + strDamageMod;
-	public static float strAcc = strength + strAccEquip + strAccMod;
-	public static float aptDamage = aptitude + aptDamageEquip + aptDamageMod;
-	public static float aptAcc = aptitude + aptAccEquip + aptAccMod;
-	public static float chaDamage = charisma + chaDamageEquip + chaDamageMod;
-	public static float chaAcc = charisma + chaAccEquip + chaAccMod;
-	public static float HPDefense = HPDefenseEquip + HPDefenseMod; // There's no HP defense stat. That would be redundant with HP.
-	public static float MPDefense = MPDefenseEquip + MPDefenseMod; // Likewise, there's no MP defense stat; there's just MP itself.
-	public static float HPEvasion = agility + HPEvasionEquip + HPEvasionMod;
-	public static float MPEvasion = cunning + MPEvasionEquip + MPEvasionMod;
+	public static float strDamage;
+	public static float strAcc;
+	public static float aptDamage;
+	public static float aptAcc; 
+	public static float chaDamage; 
+	public static float chaAcc; 
+	public static float HPDefense;
+	public static float MPDefense;
+	public static float HPEvasion;
+	public static float MPEvasion;
 
 	public static void UseConsumable(Consumable item)
 	{
@@ -86,6 +86,7 @@ public class PlayerInfo : MonoBehaviour {
 		HPEvasionEquip += item.hitPointsEvasion;
 		MPEvasionEquip += item.mentalPointsEvasion;
 		equipment[item.slot] = item;
+		UpdateStats();
 	}
 
 	public static void UnequipItem(int slot)
@@ -101,5 +102,19 @@ public class PlayerInfo : MonoBehaviour {
 		HPEvasionEquip -= equipment[slot].hitPointsEvasion;
 		MPEvasionEquip -= equipment[slot].mentalPointsEvasion;
 		equipment[slot] = new Equipment();
+	}
+	
+	public static void UpdateStats()
+	{
+		strDamage = strength + strDamageEquip + strDamageMod;
+		strAcc = strength + strAccEquip + strAccMod;
+		aptDamage = aptitude + aptDamageEquip + aptDamageMod;
+		aptAcc = aptitude + aptAccEquip + aptAccMod;
+		chaDamage = charisma + chaDamageEquip + chaDamageMod;
+		chaAcc = charisma + chaAccEquip + chaAccMod;
+		HPDefense = HPDefenseEquip + HPDefenseMod; // There's no HP defense stat. That would be redundant with HP.
+		MPDefense = MPDefenseEquip + MPDefenseMod; // Likewise, there's no MP defense stat; there's just MP itself.
+		HPEvasion = agility + HPEvasionEquip + HPEvasionMod;
+		MPEvasion = cunning + MPEvasionEquip + MPEvasionMod;
 	}
 }
