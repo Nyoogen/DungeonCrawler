@@ -30,6 +30,10 @@ public class FieldController : MonoBehaviour
 	// Status vars
 	public Rect statusRect = new Rect(675, 50, 200, 400);	// Status box
 	private bool showStatus = false;
+	
+	// Equipment display vars
+	public Rect equipRect = new Rect(675, 50, 200, 200); // Equipment box
+	private bool showEquip = false;
 
 	void Awake ()
 	{
@@ -201,6 +205,20 @@ public class FieldController : MonoBehaviour
 					showStatus = false;
 			}
 		}
+		
+		// This is my test code to display current equipment
+		
+		if (showEquip == true)
+		{
+			GUI.Box(equipRect, "Main Hand: "+PlayerInfo.equipment[0].itemName+"\nOff Hand: "+PlayerInfo.equipment[1].itemName+"\nHead: "+PlayerInfo.equipment[2].itemName+"\nBody: "+PlayerInfo.equipment[3].itemName+"\nHands: "+PlayerInfo.equipment[4].itemName+"\nLegs: "+PlayerInfo.equipment[5].itemName+"\nFeet: "+PlayerInfo.equipment[6].itemName+"\nNeck: "+PlayerInfo.equipment[7].itemName+"\nRing: "+PlayerInfo.equipment[8].itemName);
+			if(Input.GetMouseButtonDown(0))
+			{
+				Event e = Event.current;
+				
+				if(!equipRect.Contains(e.mousePosition))
+					showEquip = false;
+			}
+		}
 
 		if (showConfirm)
 		{
@@ -260,7 +278,7 @@ public class FieldController : MonoBehaviour
 				GUILayout.BeginHorizontal();
 					if(GUILayout.Button("Equipment", buttonStyle))
 					{
-						// Go to equip menu
+						showEquip = true;
 					}
 					if(GUILayout.Button("Abilities", buttonStyle))
 					{
