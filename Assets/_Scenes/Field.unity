@@ -874,6 +874,12 @@ MonoBehaviour:
     y: 50
     width: 200
     height: 400
+  equipRect:
+    serializedVersion: 2
+    x: 525
+    y: 50
+    width: 350
+    height: 300
 --- !u!1 &1401217061
 GameObject:
   m_ObjectHideFlags: 0
