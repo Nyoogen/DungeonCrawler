@@ -26,7 +26,6 @@ public class TownController : MonoBehaviour
 	private string[] slotStrings = new string[10];
 	private GUIStyle[] slotStyles = new GUIStyle[10];
 	private int currentPage = 1;
-	private int itemIndex;
 	private int clickedIndex;
 	private bool showConfirm = false;
 	private StoreInventory storeInventory;
@@ -169,7 +168,6 @@ public class TownController : MonoBehaviour
 						
 						// Then change the one clicked item to the "clicked" state
 						slotStyles[i] = clickedStyle;
-						itemIndex = i+((currentPage-1)*10);
 						clickedIndex = i;
 						showConfirm = true;
 						break;
