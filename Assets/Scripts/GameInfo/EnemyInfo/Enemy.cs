@@ -16,6 +16,7 @@ public class Enemy
 	public float mentalPointsDefense;
 	public float hitPointsEvasion;
 	public float mentalPointsEvasion;
+	public float initiative;
 
 	// Default constructor
 	public Enemy()
@@ -33,9 +34,10 @@ public class Enemy
 		mentalPointsDefense = 0f;
 		hitPointsEvasion = 0f;
 		mentalPointsEvasion = 0f;
+		initiative = 0f;
 	}
 
-	public Enemy(string name, float hp, float mp, float strDmg, float strAcc, float aptDmg, float aptAcc, float chaDmg, float chaAcc, float hpDef, float mpDef, float hpEva, float mpEva)
+	public Enemy(string name, float hp, float mp, float strDmg, float strAcc, float aptDmg, float aptAcc, float chaDmg, float chaAcc, float hpDef, float mpDef, float hpEva, float mpEva, float speed)
 	{
 		enemyName = name;
 		hitPoints = hp;
@@ -50,6 +52,7 @@ public class Enemy
 		mentalPointsDefense = mpDef;
 		hitPointsEvasion = hpEva;
 		mentalPointsEvasion = mpEva;
+		initiative = speed;
 	}
 
 }

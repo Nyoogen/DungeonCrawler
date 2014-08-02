@@ -29,6 +29,7 @@ public class PlayerInfo
 	public static float mpDefenseEquip = 0f; // The reduction of MP damage conferred by accessories.
 	public static float hpEvasionEquip = 0f; // Whatever bonus to Agility is conferred by equipment.
 	public static float mpEvasionEquip = 0f; // Whatever bonus to Cunning is conferred by equipment.
+	public static float speedEquip = 0f; // Whatever bonus to turn order speed is conferred by equipment.
 	
 	public static float strDamageMod = 0f; // The effect of temporary buffs/debuffs on Strength damage.
 	public static float strAccMod = 0f; // The effect of temporary buffs/debuffs on Strength accuracy.
@@ -40,6 +41,7 @@ public class PlayerInfo
 	public static float mpDefenseMod = 0f; // The effect of temporary buffs/debuffs on MP defense.
 	public static float hpEvasionMod = 0f; // The effect of temporary buffs/debuffs on HP evasion.
 	public static float mpEvasionMod = 0f; // The effect of temporary buffs/debuffs on MP evasion.
+	public static float speedMod = 0f; // The effort of temporary buffs/debuffs on turn order speed.
 	
 	// Here are the secondary stats. Use these for combat.
 	
@@ -53,6 +55,7 @@ public class PlayerInfo
 	public static float mpDefense;
 	public static float hpEvasion;
 	public static float mpEvasion;
+	public static float speed;
 	
 	public static float currency = 1000f; // I'll need an update script somewhere, in town at least.
     
@@ -87,6 +90,7 @@ public class PlayerInfo
 		mpDefenseEquip += item.mentalPointsDefense;
 		hpEvasionEquip += item.hitPointsEvasion;
 		mpEvasionEquip += item.mentalPointsEvasion;
+		speedEquip += item.initiative;
 		equipment[item.slot] = item;
 		UpdateStats();
 	}
@@ -103,6 +107,7 @@ public class PlayerInfo
 		mpDefenseEquip -= equipment[slot].mentalPointsDefense;
 		hpEvasionEquip -= equipment[slot].hitPointsEvasion;
 		mpEvasionEquip -= equipment[slot].mentalPointsEvasion;
+		speedEquip -= equipment[slot].initiative;
 		equipment[slot] = new Equipment();
 	}
 	
@@ -118,6 +123,7 @@ public class PlayerInfo
 		mpDefense = mpDefenseEquip + mpDefenseMod; // Likewise, there's no MP defense stat; there's just MP itself.
 		hpEvasion = agility + hpEvasionEquip + hpEvasionMod;
 		mpEvasion = cunning + mpEvasionEquip + mpEvasionMod;
+		speed = agility + speedEquip + speedMod;
 	}
 	
 	// I'm putting my rudimentary currency value in here for now.

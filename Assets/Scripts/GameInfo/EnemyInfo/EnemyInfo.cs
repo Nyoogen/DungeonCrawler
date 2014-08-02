@@ -16,6 +16,7 @@ public class EnemyInfo
 	public static float mpDefense = 0f;
 	public static float hpEvasion = 0f;
 	public static float mpEvasion = 0f;
+	public static float speed = 0f;
 
 	public static void SetEnemyInfo(Enemy enemy)
 	{
@@ -32,5 +33,6 @@ public class EnemyInfo
 		mpDefense = enemy.mentalPointsDefense;
 		hpEvasion = enemy.hitPointsEvasion;
 		mpEvasion = enemy.mentalPointsEvasion;
+		speed = enemy.initiative;
 	}
 }

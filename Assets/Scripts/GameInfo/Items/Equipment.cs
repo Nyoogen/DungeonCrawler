@@ -15,6 +15,7 @@ public class Equipment
 	public float charismaAccuracy;
 	public float hitPointsEvasion;
 	public float mentalPointsEvasion;
+	public float initiative;
 
 
 	// Default constructor
@@ -32,9 +33,10 @@ public class Equipment
 		charismaAccuracy = 0f;
 		hitPointsEvasion = 0f;
 		mentalPointsEvasion = 0f;
+		initiative = 0f;
 	}
 
-	public Equipment(string name, int slotNum, float hpD, float mpD, float strD, float strAc, float aptD, float aptAc, float chaD, float chaAc, float hpEv, float mpEv)
+	public Equipment(string name, int slotNum, float hpD, float mpD, float strD, float strAc, float aptD, float aptAc, float chaD, float chaAc, float hpEv, float mpEv, float speed)
 	{
 		itemName = name;
 		slot = slotNum;
@@ -48,5 +50,6 @@ public class Equipment
 		charismaAccuracy = chaAc;
 		hitPointsEvasion = hpEv;
 		mentalPointsEvasion = mpEv;
+		initiative = speed;
 	}
 }
