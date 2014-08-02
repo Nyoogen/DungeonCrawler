@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerInfo : MonoBehaviour {
-
+public class PlayerInfo
+{
 	public static Equipment[] equipment = new Equipment[9];	// We can put a different number in the brackets once we know how many pieces of equipment we want
 															// For now: Main hand, offhand, Head, Body, Hands, Legs, Feet, Neck, Ring	
 
@@ -25,10 +25,10 @@ public class PlayerInfo : MonoBehaviour {
 	public static float aptAccEquip = 0f; // The accuracy benefit of a magic tool for Apt abilities.
 	public static float chaDamageEquip = 0f; // The MP damage benefit of an outfit or accessory for Cha abilities.
 	public static float chaAccEquip = 0f; // The accuracy beneift of an outfit or accessory for Cha abilities.
-	public static float HPDefenseEquip = 0f; // The reduction of HP damage conferred by armor.
-	public static float MPDefenseEquip = 0f; // The reduction of MP damage conferred by accessories.
-	public static float HPEvasionEquip = 0f; // Whatever bonus to Agility is conferred by equipment.
-	public static float MPEvasionEquip = 0f; // Whatever bonus to Cunning is conferred by equipment.
+	public static float hpDefenseEquip = 0f; // The reduction of HP damage conferred by armor.
+	public static float mpDefenseEquip = 0f; // The reduction of MP damage conferred by accessories.
+	public static float hpEvasionEquip = 0f; // Whatever bonus to Agility is conferred by equipment.
+	public static float mpEvasionEquip = 0f; // Whatever bonus to Cunning is conferred by equipment.
 	
 	public static float strDamageMod = 0f; // The effect of temporary buffs/debuffs on Strength damage.
 	public static float strAccMod = 0f; // The effect of temporary buffs/debuffs on Strength accuracy.
@@ -36,10 +36,10 @@ public class PlayerInfo : MonoBehaviour {
 	public static float aptAccMod = 0f; // The effect of temporary buffs/debuffs on Aptitude accuracy.
 	public static float chaDamageMod = 0f; // The effect of temporary buffs/debuffs on Charisma damage.
 	public static float chaAccMod = 0f; // The effect of temporary buffs/debuffs on Charisma accuracy.
-	public static float HPDefenseMod = 0f; // The effect of temporary buffs/debuffs on HP defense.
-	public static float MPDefenseMod = 0f; // The effect of temporary buffs/debuffs on MP defense.
-	public static float HPEvasionMod = 0f; // The effect of temporary buffs/debuffs on HP evasion.
-	public static float MPEvasionMod = 0f; // The effect of temporary buffs/debuffs on MP evasion.
+	public static float hpDefenseMod = 0f; // The effect of temporary buffs/debuffs on HP defense.
+	public static float mpDefenseMod = 0f; // The effect of temporary buffs/debuffs on MP defense.
+	public static float hpEvasionMod = 0f; // The effect of temporary buffs/debuffs on HP evasion.
+	public static float mpEvasionMod = 0f; // The effect of temporary buffs/debuffs on MP evasion.
 	
 	// Here are the secondary stats. Use these for combat.
 	
@@ -49,10 +49,10 @@ public class PlayerInfo : MonoBehaviour {
 	public static float aptAcc; 
 	public static float chaDamage; 
 	public static float chaAcc; 
-	public static float HPDefense;
-	public static float MPDefense;
-	public static float HPEvasion;
-	public static float MPEvasion;
+	public static float hpDefense;
+	public static float mpDefense;
+	public static float hpEvasion;
+	public static float mpEvasion;
 	
 	public static float currency = 1000f; // I'll need an update script somewhere, in town at least.
     
@@ -83,10 +83,10 @@ public class PlayerInfo : MonoBehaviour {
 		aptAccEquip    += item.aptitudeAccuracy;
 		chaDamageEquip += item.charismaDamage;
 		chaAccEquip    += item.charismaAccuracy;
-		HPDefenseEquip += item.hitPointsDefense;
-		MPDefenseEquip += item.mentalPointsDefense;
-		HPEvasionEquip += item.hitPointsEvasion;
-		MPEvasionEquip += item.mentalPointsEvasion;
+		hpDefenseEquip += item.hitPointsDefense;
+		mpDefenseEquip += item.mentalPointsDefense;
+		hpEvasionEquip += item.hitPointsEvasion;
+		mpEvasionEquip += item.mentalPointsEvasion;
 		equipment[item.slot] = item;
 		UpdateStats();
 	}
@@ -99,10 +99,10 @@ public class PlayerInfo : MonoBehaviour {
 		aptAccEquip    -= equipment[slot].aptitudeAccuracy;
 		chaDamageEquip -= equipment[slot].charismaDamage;
 		chaAccEquip    -= equipment[slot].charismaAccuracy;
-		HPDefenseEquip -= equipment[slot].hitPointsDefense;
-		MPDefenseEquip -= equipment[slot].mentalPointsDefense;
-		HPEvasionEquip -= equipment[slot].hitPointsEvasion;
-		MPEvasionEquip -= equipment[slot].mentalPointsEvasion;
+		hpDefenseEquip -= equipment[slot].hitPointsDefense;
+		mpDefenseEquip -= equipment[slot].mentalPointsDefense;
+		hpEvasionEquip -= equipment[slot].hitPointsEvasion;
+		mpEvasionEquip -= equipment[slot].mentalPointsEvasion;
 		equipment[slot] = new Equipment();
 	}
 	
@@ -114,10 +114,10 @@ public class PlayerInfo : MonoBehaviour {
 		aptAcc = aptitude + aptAccEquip + aptAccMod;
 		chaDamage = charisma + chaDamageEquip + chaDamageMod;
 		chaAcc = charisma + chaAccEquip + chaAccMod;
-		HPDefense = HPDefenseEquip + HPDefenseMod; // There's no HP defense stat. That would be redundant with HP.
-		MPDefense = MPDefenseEquip + MPDefenseMod; // Likewise, there's no MP defense stat; there's just MP itself.
-		HPEvasion = agility + HPEvasionEquip + HPEvasionMod;
-		MPEvasion = cunning + MPEvasionEquip + MPEvasionMod;
+		hpDefense = hpDefenseEquip + hpDefenseMod; // There's no HP defense stat. That would be redundant with HP.
+		mpDefense = mpDefenseEquip + mpDefenseMod; // Likewise, there's no MP defense stat; there's just MP itself.
+		hpEvasion = agility + hpEvasionEquip + hpEvasionMod;
+		mpEvasion = cunning + mpEvasionEquip + mpEvasionMod;
 	}
 	
 	// I'm putting my rudimentary currency value in here for now.

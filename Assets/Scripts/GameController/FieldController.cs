@@ -6,8 +6,8 @@ public class FieldController : MonoBehaviour
 {
 	public Texture seanTexture;
 	private GameObject player;
-	private GameObject HPText;
-	private GameObject MPText;
+	private GameObject hpText;
+	private GameObject mpText;
 	private MenuController menuController;
 	private bool showMenu = false;
 	private bool showInventory = false;
@@ -53,8 +53,8 @@ public class FieldController : MonoBehaviour
 		}
 
 		player = GameObject.FindGameObjectWithTag("Player");
-		HPText = GameObject.Find("/FieldStatus/HPText");
-		MPText = GameObject.Find("/FieldStatus/MPText");
+		hpText = GameObject.Find("/FieldStatus/HPText");
+		mpText = GameObject.Find("/FieldStatus/MPText");
 		menuController = GameObject.Find("FieldStatus").GetComponent<MenuController>();
 
 		player.transform.position = FieldInfo.lastPlayerPosition;
@@ -85,8 +85,8 @@ public class FieldController : MonoBehaviour
 			PlayerInfo.mp -= 20.0f;
 		}
 		
-		HPText.guiText.text = PlayerInfo.hp.ToString();
-		MPText.guiText.text = PlayerInfo.mp.ToString();
+		hpText.guiText.text = PlayerInfo.hp.ToString();
+		mpText.guiText.text = PlayerInfo.mp.ToString();
 
 		// OK, so I'm going to leave MenuController alone, and have it ONLY for the field menu, just because I like your portrait thing, and I think it'd be a pain to texture a button and the text. We can figure out a way later
 		if (menuController.GetOpenedState())
@@ -195,7 +195,7 @@ public class FieldController : MonoBehaviour
 		// This is the status screen code. So long wheeeeee
 		if (showStatus == true)
 		{
-			GUI.Box(statusRect, "Current Parameters\n\nHP: "+PlayerInfo.hp+"\nMP: "+PlayerInfo.mp+"\n\nStrength: "+PlayerInfo.strength+"\nAptitude: "+PlayerInfo.aptitude+"\nCharisma: "+PlayerInfo.charisma+"\nAgility: "+PlayerInfo.agility+"\nCunning: "+PlayerInfo.cunning+"\n\nDefense: "+PlayerInfo.HPDefense+"\nMental Defense: "+PlayerInfo.MPDefense+"\nPhysical Power: "+PlayerInfo.strDamage+"\nPhysical Finesse: "+PlayerInfo.strAcc+"\nMagical Power: "+PlayerInfo.aptDamage+"\nMagical Finesse: "+PlayerInfo.aptAcc+"\nSocial Power: "+PlayerInfo.chaDamage+"\nSocial Finesse: "+PlayerInfo.chaAcc+"\nPhysical Evasion: "+PlayerInfo.HPEvasion+"\nMental Alertness: "+PlayerInfo.MPEvasion+"\n\nAchievements\n\nSlain the Schmoo: "+GameState.SchmooSlain);
+			GUI.Box(statusRect, "Current Parameters\n\nhp: "+PlayerInfo.hp+"\nmp: "+PlayerInfo.mp+"\n\nStrength: "+PlayerInfo.strength+"\nAptitude: "+PlayerInfo.aptitude+"\nCharisma: "+PlayerInfo.charisma+"\nAgility: "+PlayerInfo.agility+"\nCunning: "+PlayerInfo.cunning+"\n\nDefense: "+PlayerInfo.hpDefense+"\nMental Defense: "+PlayerInfo.mpDefense+"\nPhysical Power: "+PlayerInfo.strDamage+"\nPhysical Finesse: "+PlayerInfo.strAcc+"\nMagical Power: "+PlayerInfo.aptDamage+"\nMagical Finesse: "+PlayerInfo.aptAcc+"\nSocial Power: "+PlayerInfo.chaDamage+"\nSocial Finesse: "+PlayerInfo.chaAcc+"\nPhysical Evasion: "+PlayerInfo.hpEvasion+"\nMental Alertness: "+PlayerInfo.mpEvasion+"\n\nAchievements\n\nSlain the Schmoo: "+GameState.SchmooSlain);
 
 			if(Input.GetMouseButtonDown(0))
 			{
@@ -210,7 +210,11 @@ public class FieldController : MonoBehaviour
 		
 		if (showEquip == true)
 		{
-			GUI.Box(equipRect, "Main Hand: "+PlayerInfo.equipment[0].itemName+"\nOff Hand: "+PlayerInfo.equipment[1].itemName+"\nHead: "+PlayerInfo.equipment[2].itemName+"\nBody: "+PlayerInfo.equipment[3].itemName+"\nHands: "+PlayerInfo.equipment[4].itemName+"\nLegs: "+PlayerInfo.equipment[5].itemName+"\nFeet: "+PlayerInfo.equipment[6].itemName+"\nNeck: "+PlayerInfo.equipment[7].itemName+"\nRing: "+PlayerInfo.equipment[8].itemName);
+			// NOT WORKING; FIX THIS
+			GUILayout.BeginArea(equipRect);
+			GUILayout.Box("Main Hand: "+PlayerInfo.equipment[0].itemName+"\nOff Hand: "+PlayerInfo.equipment[1].itemName+"\nHead: "+PlayerInfo.equipment[2].itemName+"\nBody: "+PlayerInfo.equipment[3].itemName+"\nHands: "+PlayerInfo.equipment[4].itemName+"\nLegs: "+PlayerInfo.equipment[5].itemName+"\nFeet: "+PlayerInfo.equipment[6].itemName+"\nNeck: "+PlayerInfo.equipment[7].itemName+"\nRing: "+PlayerInfo.equipment[8].itemName);
+			GUILayout.EndArea();
+//			GUI.Box(equipRect, "Main Hand: "+PlayerInfo.equipment[0].itemName+"\nOff Hand: "+PlayerInfo.equipment[1].itemName+"\nHead: "+PlayerInfo.equipment[2].itemName+"\nBody: "+PlayerInfo.equipment[3].itemName+"\nHands: "+PlayerInfo.equipment[4].itemName+"\nLegs: "+PlayerInfo.equipment[5].itemName+"\nFeet: "+PlayerInfo.equipment[6].itemName+"\nNeck: "+PlayerInfo.equipment[7].itemName+"\nRing: "+PlayerInfo.equipment[8].itemName);
 			if(Input.GetMouseButtonDown(0))
 			{
 				Event e = Event.current;

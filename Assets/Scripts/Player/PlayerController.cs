@@ -43,11 +43,12 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) 
 	{
-		if (other.tag == "Enemy")
+		if (other.tag == "Schmoo")
 		{
 			speed = 0.0f;
 			FieldInfo.lastPlayerPosition = transform.position;
 			FieldInfo.lastEncounteredObjectTag = other.gameObject.tag;	// Should probably be storing the object name or something here, because if we have multiple "Enemy" tagged objects, this might end up destroying all of them
+			EnemyInfo.SetEnemyInfo(EnemyList.schmoo);
 			sceneChanger.ChangeScene("Battle");
 		}
 		if (other.tag == "Exit")
